@@ -4,12 +4,12 @@
     <head>
         <title>Slider Test</title>
         <meta charset="utf-8"/>
-        <link src="slider.css" type="text/css" rel="stylesheet"/>
+        <link href="slider.css" type="text/css" rel="stylesheet"/>
     </head>
-    <body>
+    <body style="margin: 0px;">
         <div class="sliderPackage">
             <div class="sliderleft">
-                <div class="button" id="buttonLeft">&nbsp;</div>
+                <button class="button" id="buttonLeft">&nbsp;</button>
             </div>
             
             <div class="slider">
@@ -48,7 +48,7 @@
             </div>
             
             <div class="sliderright">
-                <div class="button" id="buttonRight">&nbsp;</div>
+                <button class="button" id="buttonRight">&nbsp;</button>
             </div>
             
             <div class="indicators">
@@ -89,17 +89,11 @@
                             j = i-1;
                         }
                         
-                        if (ResizeCheck() == 0) {
-                            
-                            if ((this.containerPosition != 0 || direction != 'left') && (this.containerPosition+$('.sliderContent').width() < $('.sliderContainer').width() || direction != 'right')) {
-                                $('.sliderContainer').animate({left: c}, 300);
-                            }
-                            else if (this.containerPosition == 0 && direction == 'left') {
-                                $('.sliderContainer').animate({left: '-='+String(Math.round($('.sliderContainer').width()-$('.sliderContainer').width()/$('.sliderContent').length))+'px'}, 600);
-                            }
-                            else {
-                                $('.sliderContainer').animate({left: '0'}, 600);
-                            }
+                        if ((this.containerPosition != 0 || direction != 'left') && (this.containerPosition+$('.sliderContent').width() < $('.sliderContainer').width() || direction != 'right')) {
+                            $('.sliderContainer').animate({left: c}, 300);
+                        }
+                        else if (this.containerPosition == 0 && direction == 'left') {
+                            $('.sliderContainer').animate({left: '-='+String(Math.round($('.sliderContainer').width()-$('.sliderContainer').width()/$('.sliderContent').length))+'px'}, 600);
                         }
                         else {
                             $('.sliderContainer').animate({left: '0'}, 600);
@@ -155,36 +149,37 @@
                         
                         //Sizing Ratios
                         
-                        var five = Math.round(5/740*$('body').width()); // 5/740
+                        var five = 5/740*$('.sliderPackage').width(); // 5/740
                         
-                        var fourTwenty = five*84;                       // 420/740
-                        var ten = five*2;                               // 10/740
-                        var eighteen = five*3.8;                        // 18/740
-                        var twenty = five*4;                            // 20/740
-                        var fourty = five*8;                            // 40/740
-                        var fifty = five*10;                            // 50/740
-                        var oneNinety = five*38;                        // 190/bheight
-                        var threeNinety = five*78;                      // 390/bheight
-                        var sixFourty = five*128;                       // 640/740
-                        var sixNinety = five*138;                       // 690/740
+                        var twoEightyTwo = five*56.4;                   	// 282/740
+                        var ten = five*2;                               	// 10/740
+                        var eighteen = five*3.8;                        	// 18/740
+                        var twenty = five*4;                            	// 20/740
+                        var fourty = five*8;                            	// 40/740
+                        var fifty = five*10;                            	// 50/740
+                        var oneNinety = Math.round(twoEightyTwo*190/420);   	// 190/420
+                        var threeNinety = Math.round(twoEightyTwo*390/420); 	// 390/420
+                        var sixFourty = five*128;                       	// 640/740
+                        var sixNinety = five*138;                       	// 690/740
                         var sevenFourty = five*148;
                         
-                        //More Ratios
-                        var sliderWidth = $('.sliderContent').width()*$('.sliderContent').length;
                         
-                        
-                        
-                        $('body').css('height', String(fourTwenty)+'px').css('font-size', String(eighteen)+'px').css('width', '70%');
-                        $('.sliderContainer').css('height', String(fourTwenty)+'px').css('width', sliderWidth+'px');
-                        $('.sliderContent').css('height', String(fourTwenty)+'px').css('width', String(sixFourty)+'px');
+                        $('.sliderPackage').css('height', String(twoEightyTwo)+'px').css('font-size', String(eighteen)+'px').css('width', '100%');
+                        $('.sliderContainer').css('height', String(twoEightyTwo)+'px');
+                        $('.sliderContent').css('height', String(twoEightyTwo)+'px').css('width', String(Math.floor(sixFourty))+'px');
                         $('.scontent').css('padding', String(ten)+'px');
-                        $('.slider').css('width', String(sixFourty)+'px').css('height', String(fourTwenty)+'px').css('left', String(fifty)+'px');
-                        $('.sliderleft').css('height', String(fourTwenty)+'px').css('width', String(fifty)+'px');
-                        $('.sliderright').css('height', String(fourTwenty)+'px').css('width', String(fifty)+'px').css('left', String(sixNinety)+'px');
-                        $('.button').css('margin-top', String(oneNinety)+'px').css('width', String(fourty)+'px').css('height', String(fourty)+'px').css('boder-radius', String(twenty)+'px');
+                        $('.slider').css('width', String(sixFourty)+'px').css('height', String(twoEightyTwo)+'px').css('left', String(fifty)+'px');
+                        $('.sliderleft').css('height', String(Math.ceil(twoEightyTwo))+'px').css('width', String(fifty)+'px');
+                        $('.sliderright').css('height', String(Math.ceil(twoEightyTwo))+'px').css('width', String(fifty)+'px').css('left', String(sixNinety)+'px');
+                        $('.button').css('margin-top', String(oneNinety)+'px').css('width', String(fourty)+'px').css('height', String(fourty)+'px').css('border-radius', String(twenty)+'px').css('margin-right', 'auto').css('margin-left', 'auto');
                         $('.indicators').css('top', String(threeNinety)+'px').css('width', String(sevenFourty)+'px');
                         $('.indic').css('width', String(ten)+'px').css('height', String(ten)+'px').css('border-radius', String(five)+'px').css('margin-left', String(ten)+'px');
                         $('.current').css('width', String(ten)+'px').css('height', String(ten)+'px').css('border-radius', String(five)+'px').css('margin-left', String(ten)+'px');
+                        
+                        //More Ratios
+                        var sliderWidth = Math.ceil($('.sliderContent').width())*$('.sliderContent').length;
+                        
+                        $('.sliderContainer').css('width', sliderWidth+'px');
                         
                     }
                     var l = 0;
@@ -201,7 +196,9 @@
                     
                     $(window).resize(function() {
                         
-                        $('.sliderContainer').animate({left: '0'}, 300);$('.sliderContainer').animate({left: '0'}, 300);
+                        $('.sliderContainer').animate({left: '0px'}, 0);
+                        $('.indic').removeClass('current');
+                        $('#indi0').addClass('current');
                         Resize();
                         
                     });
