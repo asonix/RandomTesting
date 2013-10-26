@@ -1,0 +1,77 @@
+body {
+                height: 420px;
+                width: 50%;
+                padding: 0px;
+                margin: 0px;
+                font-family: Arial;
+                font-size: 18px;
+            }
+            .sliderContainer {
+                height: 420px;
+                position: relative;
+                left: 0px;
+            }
+            .sliderContent {
+                height: 420px;
+                width: 640px;
+                float: left;
+                background-color: #998877;
+            }
+            .scontent {
+                padding: 10px;
+            }
+            .slider {
+                width: 640px;
+                height: 420px;
+                position: absolute;
+                left: 50px;
+                margin-left: auto;
+                margin-right: auto;
+                background-color: #e5e5e5;
+                z-index: 0;
+                overflow: hidden;
+            }
+            .sliderleft {
+                position: absolute;
+                left: 0px;
+                background-color: #e5e5e5;
+                height: 420px;
+                width: 50px;
+                z-index: 2;
+            }
+            .sliderright {
+                position: absolute;
+                left: 690px;
+                background-color: #e5e5e5;
+                height: 420px;
+                width: 50px;
+                z-index: 2;
+            }
+            .button {
+                background-color: #554433;
+                margin-top: 190px;
+                margin-left: auto;
+                margin-right: auto;
+                width: 40px;
+                height: 40px;
+                border-radius: 20px;
+            }
+            .indicators {
+                position: relative;
+                top: 390px;
+                width: 100%;
+                text-align: center;
+            }
+            .indic {
+                display: inline-block;
+                background-color: #554433;
+            }
+            .current {
+                display: inline-block;
+                background-color: #e5e5e5;
+            }
+            button {
+                text-decoration: none;
+                border: none;
+                outline: none;
+            }
