@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Anderson Homecoming</title>
+        <meta charset="utf-8"/>
+        <script src="jquery-2.0.3.js" type="text/javascript"></script>
+        <style>
+            body {
+                overflow-x: hidden;
+                margin: 10px;
+                color: #e5e5e5;
+                background-color: #0a0a0a;
+                font-family: sans-serif;
+            }
+            button {
+                background-color: #e5e5e5;
+                outline-style: none;
+                border-style: none;
+                padding: 5px;
+                border-radius: 3px;
+                z-index: 10;
+            }
+            nav {
+                position: fixed;
+                bottom: 5px;
+                right: 5px;
+            }
+            .header {
+                position: relative;
+                text-align: center;
+                top: 50px;
+                width: auto;
+                height: auto;
+            }
+            .logo {
+                font-size: 72px;
+                text-align: center;
+                width: auto;
+                height: auto;
+            }
+            .rest {
+                position: fixed;
+                top: 0px;
+                left: 3%;
+                /*width: 100%;
+                height: 100%;*/
+            }
+            article {
+                width: 500px;
+                text-align: justify;
+            }
+        </style>
+        <script>
+            $(document).ready(function(){
+                $('nav').hide();
+                $('.rest').hide();
+                $('.header').hide();
+                $('.header').fadeIn(500).delay(300).animate({top: String(-1*$('.header').height())+'px'}, 1000).fadeOut(500, function() {
+                    $('#r1').fadeIn(500);
+                    $('nav').fadeIn(500);
+                });
+                for (var i = 0; i < $('.rest').length; i++) {
+                    $('nav').append('<button class="switch" id="switch'+(i+1)+'">Switch</button>')
+                }
+                var buttons = document.getElementsByClassName('switch');
+                var current = 1;
+                for (var i = 0; i < buttons.length; i++) {
+                    buttons[i].onclick = function(){
+                        var num = this.id.substring(this.id.length-1, this.id.length);
+                        if (Number(num) == current) {
+                            console.log(num);
+                        }
+                        else {
+                            $('.rest').fadeOut(100);
+                            $('#r'+num).fadeIn(500);
+                        }
+                        current = num;
+                    };
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1 class="logo" id="l0">Anderson High School Homecoming</h1>
+        </div>
+        
+        <div class="rest" id="r1">
+            <header>
+                <h1 class="heading">Anderson High School Homecoming</h1>
+            </header>
+            <section>
+                <article>
+                    <p>
+                        The Anderson High School Homecoming dance is an anual festival that attracts many students. This year is Anderson High School's 40th aniversary and so the festivities will be even more spectacular.
+                    </p>
+                </article>
+            </section>
+        </div>
+        
+        <div class="rest" id="r2">
+            <header>
+                <h1 class="heading">YOOOOOOOOOOOOO</h1>
+            </header>
+            <section>
+                <article>
+                    <p>
+                        Whoop whoop xwhoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop
+                    </p>
+                </article>
+            </section>
+        </div>
+        
+        <div class="rest" id="r3">
+            <header>
+                <h1 class="heading">Star Wars is fun</h1>
+            </header>
+            <section>
+                <article>
+                    <p>
+                        telnet towlel.blinkenlights.nl
+                    </p>
+                </article>
+            </section>
+        </div>
+        
+        <nav>
+        </nav>
+        
+    </body>
+</html>
