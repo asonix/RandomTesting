@@ -6,20 +6,58 @@
         <meta charset="utf-8"/>
         <script src="jquery-2.0.3.js" type="text/javascript"></script>
         <style>
+            ::selection {
+                background-color: #55aadd;
+                color: #0a0a0a;
+            }
+            ::-moz-selection {
+                background-color: #55aadd;
+                color: #0a0a0a;
+            }
+            html {
+                background-image: url('xerneas.png');
+                background-size: 100%;
+            }
             body {
                 overflow-x: hidden;
-                margin: 10px;
-                color: #e5e5e5;
-                background-color: #0a0a0a;
+                width: 100%;
+                height: 100%;
+                margin: 0px;
+                padding: 0px;
+                color: #ffffff;
+                background-color: #000000;
+                opacity: .75;
                 font-family: sans-serif;
             }
             button {
-                background-color: #e5e5e5;
+                background-color: #55aadd;
+                border-color: #e5e5e5;
+                font-size: 18px;
                 outline-style: none;
-                border-style: none;
-                padding: 5px;
-                border-radius: 3px;
+                border-style: solid;
+                border-width: 2px;
+                color: #0a0a0a;
+                padding: 10px;
+                padding-left: 15px;
+                padding-right: 15px;
+                margin-left: 5px;
+                margin-right: 5px;
+                border-radius: 8px;
                 z-index: 10;
+                -webkit-transition: all 300ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                   -moz-transition: all 300ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                    -ms-transition: all 300ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                     -o-transition: all 300ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                        transition: all 300ms cubic-bezier(0.420, 0.000, 0.580, 1.000);
+                -webkit-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                   -moz-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                    -ms-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                     -o-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                        transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000);
+            }
+            button:hover {
+                background-color: #e5e5e5;
+                border-color: #55aadd;
             }
             nav {
                 position: fixed;
@@ -27,39 +65,75 @@
                 right: 5px;
             }
             .header {
-                position: relative;
+                position: absolute;
                 text-align: center;
-                top: 50px;
-                width: auto;
+                bottom: auto;
+                width: 100%;
                 height: auto;
             }
             .logo {
-                font-size: 72px;
+                position: relative;
+                display: block;
+                font-size: 128px;
                 text-align: center;
-                width: auto;
+                padding-top: 50px;
+                margin-left: auto;
+                margin-right: auto;
                 height: auto;
+                font-weight: 100;
+                width: 100%;
+            }
+            .wrapper {
+                position: fixed;
+                top: 5%;
+                left: 0px;
+                padding-left: 3%;
+                width: 100%;
+                color: #0a0a0a;
+                background-color: #63C8FF;
+                -webkit-transition: all 300ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                   -moz-transition: all 300ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                    -ms-transition: all 300ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                     -o-transition: all 300ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                        transition: all 300ms cubic-bezier(0.420, 0.000, 0.580, 1.000);
+                -webkit-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                   -moz-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                    -ms-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                     -o-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+                        transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000);
             }
             .rest {
-                position: fixed;
-                top: 0px;
-                left: 3%;
-                /*width: 100%;
-                height: 100%;*/
+                height: auto;
+            }
+            h1 {
+                font-size: 50px;
+                margin-bottom: -10px;
+                margin-left: -10px;
+            }
+            .heading {
+                padding-left: 5px;
+                font-weight: normal;
+                max-width: 100%;
             }
             article {
-                width: 500px;
+                max-width: 500px;
                 text-align: justify;
+            }
+            article p {
+                margin-left: 25px;
             }
         </style>
         <script>
             $(document).ready(function(){
                 $('nav').hide();
                 $('.rest').hide();
-                $('.header').hide();
-                $('.header').fadeIn(500).delay(300).animate({top: String(-1*$('.header').height())+'px'}, 1000).fadeOut(500, function() {
+                $('.header').hide().animate({bottom: String($(window).height()-$('.header').height())+'px'}, 0).delay(300).fadeIn(500).delay(300).animate({bottom: '100%'}, 750).fadeOut(0, function() {
+                    $('.wrapper').css('height', String($('#r1').height())+'px');
                     $('#r1').fadeIn(500);
                     $('nav').fadeIn(500);
                 });
+                $('body').animate({opacity: '1'}, 0).delay(2450).animate({opacity: '.65'}, 1000);
+                $('body').css('height', $(window).height()+'px');
                 for (var i = 0; i < $('.rest').length; i++) {
                     $('nav').append('<button class="switch" id="switch'+(i+1)+'">Switch</button>')
                 }
@@ -73,58 +147,65 @@
                         }
                         else {
                             $('.rest').fadeOut(100);
-                            $('#r'+num).fadeIn(500);
+                            $('#r'+num).delay(101).fadeIn(300, function(){
+                                $('.wrapper').animate({height: String($('#r'+String(num)).height()+60)+'px'}, 0);
+                            });
                         }
                         current = num;
                     };
                 }
+                
+                $(window).resize(function(){
+                    $('body').css('height', $(window).height()+'px');
+                });
             });
         </script>
     </head>
     <body>
         <div class="header">
-            <h1 class="logo" id="l0">Anderson High School Homecoming</h1>
+            <h1 class="logo" id="l0">Praise be to Deer God</h1>
         </div>
-        
-        <div class="rest" id="r1">
-            <header>
-                <h1 class="heading">Anderson High School Homecoming</h1>
-            </header>
-            <section>
-                <article>
-                    <p>
-                        The Anderson High School Homecoming dance is an anual festival that attracts many students. This year is Anderson High School's 40th aniversary and so the festivities will be even more spectacular.
-                    </p>
-                </article>
-            </section>
+        <div class="wrapper">
+            <div class="rest" id="r1">
+                <header>
+                    <h1 class="heading">The prayer of Deer God</h1>
+                    <h2 class="heading">May His mighty antlers save us all.</h3>
+                </header>
+                <section>
+                    <article>
+                        <p>
+                            Mighty Deer God,</br>Please,</br> with your strong hooves,</br> soft fur,</br> and glorious antlers save us this day from our suffering,</br> for you are Deer God.</br> Praise be to you!
+                        </p>
+                    </article>
+                </section>
+            </div>
+            
+            <div class="rest" id="r2">
+                <header>
+                    <h1 class="heading">YOOOOOOOOOOOOO</h1>
+                </header>
+                <section>
+                    <article>
+                        <p>
+                            Whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop
+                        </p>
+                    </article>
+                </section>
+            </div>
+            
+            <div class="rest" id="r3">
+                <header>
+                    <h1 class="heading">Star Wars is fun</h1>
+                </header>
+                <section>
+                    <article>
+                        <p>
+                            telnet towlel.blinkenlights.nl
+                        </p>
+                    </article>
+                </section>
+            </div>
         </div>
-        
-        <div class="rest" id="r2">
-            <header>
-                <h1 class="heading">YOOOOOOOOOOOOO</h1>
-            </header>
-            <section>
-                <article>
-                    <p>
-                        Whoop whoop xwhoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop whoop
-                    </p>
-                </article>
-            </section>
-        </div>
-        
-        <div class="rest" id="r3">
-            <header>
-                <h1 class="heading">Star Wars is fun</h1>
-            </header>
-            <section>
-                <article>
-                    <p>
-                        telnet towlel.blinkenlights.nl
-                    </p>
-                </article>
-            </section>
-        </div>
-        
         <nav>
         </nav>
         
