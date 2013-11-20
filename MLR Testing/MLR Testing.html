@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+
+<html>
+ <head>
+  <title>MLR Redesign</title>
+  <meta charset="utf-8"/>
+  <style>
+   @font-face {font-family: Starlight;src: url('fonts/starlight.ttf');}
+   @font-face {font-family: Comfortaa;src: url('fonts/Comfortaa-Regular.ttf');}
+   a {text-decoration: none; color: #000000;}
+   a:visited {color: #000000;}
+   ::selection {
+    background-color: #0a0a0a;
+    color: #e5e5e5;
+   }
+   ::-moz-selection {
+    background-color: #0a0a0a;
+    color: #e5e5e5;
+   }
+   body {
+    background-image:url('wallpapers/newback.png');
+    background-color: #0a0a0a; /*151515*/
+    font-family:Comfortaa;
+    overflow: hidden;
+    font-size:12px;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+   }
+   .header {
+    /*background-image: linear-gradient(to bottom, #ee77ee 0%, #CE4CEF 100%);*/
+    display: none;
+    
+    background-color: #e5e5e5;
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    left: 0px;
+    width: 100%;
+    height: auto;
+    font-size: 15px;
+    /*margin-top: 5px;*/
+    /*border-radius: 5px;*/
+    margin-top: 0px;
+    color: #0a0a0a; /*#220044;*/
+    padding-top: 5px;
+    padding-bottom: 5px;
+   }
+   .mainScroll {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+   }
+   .mainContent {
+    margin-top: 20px;
+    height: auto;
+    margin-bottom: 20px;
+   }
+   .mainContentResize {
+    border-radius: 5px;
+    background-color: #e6e6e6; /*232323*/
+    opacity: 0.95;
+    margin-left:auto;
+    margin-right:auto;
+    width:70%;
+    padding-top:1px;
+    padding-bottom:1px;
+    box-shadow: 0px 0px 15px #888888;
+   }
+   .post {
+    /*background-image: linear-gradient(to bottom, #303030 0%, #2d2d2d 100%);*/
+    background-color: #f0f0f0;
+    margin: 5px;
+    border-radius: 2px; /*5px;*/
+    border-width: 2px;
+    border-left-style: solid;
+    border-left-color: #EE77EE; /*#ee77ee;*/
+   }
+   .topicbox {
+    float: left;
+    margin: 5px;
+    border-radius: 5px;
+    width: 70%;
+    height: auto;
+    padding: 5px;
+    color:#232323;
+   }
+   .topicTitle {
+    background:#232323;
+    color:#e6e6e6;
+            transform: skew(-25deg); 
+         -o-transform: skew(-25deg); 
+       -moz-transform: skew(-25deg); 
+    -webkit-transform: skew(-25deg);
+    padding-right: 30%;
+    padding:5px;
+    padding-left: 10px;
+    border-top: solid 2px #55aadd;
+    border-left: solid 2px #55aadd;
+   }
+   .topicTitle div {
+            transform: skew(25deg); 
+         -o-transform: skew(25deg); 
+       -moz-transform: skew(25deg); 
+    -webkit-transform: skew(25deg);
+   }
+   .topicTitle div a{
+    color:#e6e6e6;
+   }
+   .topicDescription {
+    padding-left: 20px;
+   }
+   .userbox {
+    float: left;
+    margin: 5px;
+    position: relative;
+    border-radius: 5px;
+    padding: 5px;
+    height: 100%;
+    width: 26%;
+    min-width: 100px;
+    height: 50px;
+    color: #232323; /*#CC55CC;*/
+   }
+   .user {
+    position: relative;
+    display: inline-block;
+   }
+   .user a {
+    color:#CC55CC;
+   }
+   .date {
+    position: relative;
+    display: inline-block;
+    clear: left;
+   }
+   .postoptions {
+    float:left;
+    height:100%;
+    width:30px;
+    background-color:#0a0a0a;
+    border-left: 1px solid #CC55CC;
+   }
+   .sidebar {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 170px;
+    height: 100%;
+    background-color: #000000;
+    font-family: Starlight;
+    font-size: 8px;
+   }
+   .t1 {
+    text-align: center;
+    width: 30px;
+    height: 100%;
+    /*background-image: linear-gradient(to bottom, #303030 0%, #2d2d2d 100%);*/
+    background-color: #0a0a0a;
+    border-left: 1px solid #CC55CC;
+   }
+   .mouseOverButtons {
+    position: relative;
+   }
+   .mouseOverButtons a {
+    height: 23px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+   }
+   .mouseover {
+    /*background-image: linear-gradient(to bottom, #252525 0%, #232323 100%);*/
+    background-color: #0a0a0a;
+    color: #e7e7e7;
+    padding: 5px;
+    white-space: nowrap;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: auto;
+    font-family:Starlight;
+    font-size:8px;
+    border-radius: 5px;
+    border-width: 2px;
+    border-left-style:solid;
+    border-left-color:#ee77ee;
+   }
+   .sideContent {
+    width: 90%;
+    position: absolute;
+    top: 0px;
+    left: 30px;
+   }
+   .corner {
+    min-height: 194px;
+    background-color: #e5e5e5;
+   }
+   .t2 {
+    text-align: center;
+    float: left;
+    width: 30px;
+    height: 100%;
+    background-color: #e5e5e5;
+    /*background-image: linear-gradient(to bottom, #ee77ee 0%, #CE4CEF 100%);*/
+   }
+   .links {
+    float: left;
+   	height:100%;
+    /*background-image: linear-gradient(to bottom, #ee77ee 0%, #CE4CEF 100%);*/
+    background-color: #e5e5e5;
+   }
+   .logo img {
+    width:110px;
+    height:100px;
+   }
+   .linksTitle {
+    background:#e5e5e5;
+    color:#222222;
+    border-left: solid 2px #55aadd;
+    margin-bottom:2px;
+    -webkit-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+       -moz-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+        -ms-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+         -o-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+            transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000);
+    -webkit-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+       -moz-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+	-ms-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+	 -o-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+	    transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000);
+   }
+   .linksTitle:hover {
+    background-color: #55aadd;
+   }
+   .navlink {
+    display: block;
+    padding:5px;
+    width: 100%;
+    -webkit-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+       -moz-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+        -ms-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+         -o-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+            transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000);
+    -webkit-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+       -moz-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+	-ms-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+	 -o-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+	    transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000);
+   }
+   .navlink:hover {
+    padding-left: 10px;
+   }
+   .navlinklg {
+    display: block;
+    padding:5px;
+    width: 100%;
+    text-align: left;
+    color: #000000;
+    font-size: inherit;
+   }
+   .navlinklg:hover {
+    display: block;
+    padding:5px;
+    padding-left: 10px;
+    width: 100%;
+    text-align: left;
+    font-size: inherit;
+   }
+   #bTitle {
+    height:26px;
+    background-color: #EE77EE;
+    padding-top: 2px;
+   }
+   #bTitle img{
+	height:24px;
+	width:24px;
+   }
+   #bTitleLeft{
+    float:left;
+    width:24px;
+    padding-left:2px;
+   }
+   #bTitleMid{
+    float:left;
+    vertical-align: middle;
+   }
+   #bTitleMid div{
+    padding-top:9px;
+    padding-left:2px;
+    padding-right:2px;
+   }
+   #uTitle {
+    height:26px;
+    background-color: #55aadd;
+    padding-top: 2px;
+   }
+   #uTitle img{
+    height:24px;
+    width:24px;
+   }
+   #uTitle #bTitleMid div {
+    margin-top: -1px;
+   }
+   .users {
+    clear: both;
+    width: 101%;
+    overflow-y: auto;
+    /*background-image: linear-gradient(to bottom, #FFbbFF 0%, #eeeeee 5%);*/
+    background-color: #e5e5e5;
+   }
+   .uScroll {
+    margin-bottom: 5px;
+   }
+   .userlinks {
+    display: block;
+    padding: 5px;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    -webkit-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+       -moz-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+        -ms-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+         -o-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+            transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000);
+    -webkit-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+       -moz-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+	-ms-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+	 -o-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+	    transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000);
+   }
+   .userlinks:hover {
+    background-color: #ee77ee;
+   }
+   button {
+    outline: none;
+    border: none;
+    position: relative;
+    background-color: transparent;
+    width: 100%;
+    height: 23px;
+    text-align: center;
+    font-family: Starlight;
+    -webkit-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+       -moz-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+        -ms-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+         -o-transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+            transition: all 100ms cubic-bezier(0.420, 0.000, 0.580, 1.000);
+    -webkit-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+       -moz-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+	-ms-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+	 -o-transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
+	    transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000);
+   }
+   button img {
+    height: 18px;
+    width: 18px;
+   }
+   button:hover {
+    background-color: #55aadd;
+    color: #000000;
+    height: 23px;
+    text-align: center;
+    padding-left: 6px;
+   }
+   img {
+   	margin:0px;
+   }
+   #extend {
+    display: none;
+   }
+   #intro {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #e5e5e5;
+    background-color: #0a0a0a;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-family:Comfortaa;
+    box-shadow: 0px 0px 500px #0a0a0a;
+   }
+   #intro p {
+    position: relative;
+    left: auto;
+    text-align: center;
+   }
+   .iwrapper {
+    height: auto;
+    position: absolute;
+    top: 54%;
+    width: 100%;
+   }
+   .iButtons {
+    position: relative;
+    width: 100%;
+    text-align: center;
+   }
+   .login {
+    width: 200px;
+    height: auto;
+    /*min-height: 104px;*/
+    vertical-align: middle;
+    padding: 10px;
+    margin: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-size: 30px;
+    color: #e5e5e5;
+    background-color: #535353;
+    font-family:Comfortaa;
+   }
+   .login:hover {
+    width: 200px;
+    height: auto;
+    /*min-height: 104px;*/
+    vertical-align: middle;
+    padding: 10px;
+    margin: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-size: 30px;
+    color: #e5e5e5;
+    background-color: #55aadd;
+   }
+   .lin {
+    position: relative;
+    font-size: 30px;
+    width: 50%;
+    height: 150px;
+    min-width: 512px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+   }
+   .lin input {
+    float: right;
+    vertical-align: middle;
+    background-color: #e5e5e5;
+    outline: none;
+    border: none;
+    padding: 5px;
+    margin-top: 8px;
+    border-radius: 5px;
+    margin-bottom: 2px;
+   }
+   .sup {
+    position: relative;
+    font-size: 30px;
+    width: 50%;
+    height: 450px;
+    min-width: 512px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+   }
+   .sup div {
+    height: auto;
+   }
+   .sup input {
+    float: right;
+    vertical-align: middle;
+    background-color: #e5e5e5;
+    outline: none;
+    border: none;
+    padding: 5px;
+    margin-top: 8px;
+    border-radius: 5px;
+   }
+   .sup select {
+    float: right;
+    width: 200px;
+    vertical-align: middle;
+   }
+   .accountinput {
+    min-height: 42px;
+   }
+   input {
+    box-shadow: 0px 0px 0px 0px #55aadd;
+   }
+   input:focus {
+    border-color: #55aadd;
+    border-style: solid;
+    border-width: 1px;
+    margin-right: 1px;
+    margin-top: 7px;
+    box-shadow: 0px 0px 5px 0px #55aadd;
+   }
+   .submit {
+    position: absolute;
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    clear: both;
+   }
+   #submit {
+    position: relative;
+    right: initial;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-align: center;
+    width: 65px;
+    height: auto;
+   }
+   #submit:hover {
+    background-color: #55aadd;
+   }
+   @media screen and (max-width: 660px) {
+    body {
+     background-image: none;
+     background-color: #e6e6e6;
+    }
+    .sidebar {
+     right: -140px;
+    }
+    #extend {
+     display: block;
+     position: relative;
+     font-family: Tellural;
+     width: 30px;
+     height: auto;
+     color: #e5e5e5;
+     background-color: #0a0a0a;
+     padding-top: 15px;
+     padding-bottom: 15px;
+     margin-top: 0px;
+     margin-bottom: 0px;
+     text-align: center;
+    }
+    #extend:hover {
+     background-color: #55aadd;
+     height: auto;
+    }
+    .mainContent {
+     margin-top: 0px;
+     margin-bottom: 0px;
+    }
+    .mainContentResize {
+     border-radius: 0px;
+     box-shadow: 0px 0px 0px #888888;
+    }
+   }
+  </style>
+  <script src="jquery-2.0.3.js" type="text/javascript"></script>
+  <script>
+    $(document).ready(function(){
+     $('#intro').hide();
+     $('.navlinklg').click(function(){
+      $('#intro').fadeIn(300);
+      $('#intro p').hide();
+      $('.login').hide();
+      $('.sup').hide();
+      $('.lin').hide();
+      
+      if ($(window).height() > $(window).width()) {
+       $('#intro').css('font-size', String(Math.round($(window).width()/6))+'px');
+      }
+      else {
+       $('#intro').css('font-size', String($(window).height()/6)+'px');
+      }
+      $('#intro p').delay(300).fadeIn(700);
+      $('.login').delay(600).fadeIn(700);
+      
+      $('#continue').click(function(){
+       $('#intro p').delay(300).animate({left: '100%'}, 300).fadeOut(0).animate({left: '0px'}, 0).animate({bottom: '0px'}, 0);
+       $('.iButtons').delay(50).animate({left: '-100%'}, 300).delay(300).fadeOut(0).animate({left: '0px'}, 0).delay(2000).fadeIn(0);
+       $('.lin').delay(400).animate({left: '100%'}, 300).fadeOut(0).animate({left: '0px'}, 0);
+       $('.sup').delay(400).animate({left: '100%'}, 300).fadeOut(0).animate({left: '0px'}, 0);
+       $('#intro').delay(900).animate({bottom: '-100%'}, 300).delay(25).fadeOut(300).fadeOut(0).animate({bottom: '0px'}, 0);
+       $('.iwrapper').delay(2000).animate({top: '54%'}, 0);
+      });
+      
+      $('#create').click(function(){
+       $('#intro p').animate({bottom: '100%'}, 300).fadeOut(0);
+       $('.iwrapper').animate({top: '2%'}, 300);
+       if ($('.sup').css('display') == 'block') {
+        //code
+       }
+       else {
+        $('.lin').fadeOut(150);
+        $('.sup').delay(150).fadeIn(300);
+       }
+      });
+      
+      $('#login').click(function(){
+       $('#intro p').animate({bottom: '100%'}, 300).fadeOut(100);
+       $('.iwrapper').animate({top: '2%'}, 300);
+       if ($('.lin').css('display') == 'block') {
+        //code
+       }
+       else {
+        $('.sup').fadeOut(150);
+        $('.lin').delay(150).fadeIn(300);
+       }
+      });
+     });
+    });
+  </script>
+  <script>
+   
+   $(document).ready(function(){
+    
+    var posts = document.getElementsByClassName('post');
+    var x = 0;
+    var p = 0;
+        
+    //$('.userbox').css('width', $('.u'))
+    $('.hidden').hide();
+    $('#hid0').show();
+    var interval = setInterval(function(){
+     if (x < 3) {
+      
+      for (var i = 0; i < posts.length; i++) {
+       var j = String(i+1);
+       if ($('.post:nth-child('+j+') .userbox .user').width() > p) {
+        p = $('.post:nth-child('+j+') .userbox .user').width();
+       }
+       $('.post:nth-child('+j+') .userbox').css('min-width', $('.post:nth-child('+j+') .userbox .user').width()+'px')
+       $('.post:nth-child('+j+')').css('height', Math.ceil($('.post:nth-child('+j+') .topicbox').height()+20)+'px');
+       $('.post:nth-child('+j+') .userbox').css('height', $('.post:nth-child('+j+') .topicbox').height()+'px'); 
+      }
+      
+      $('.post .userbox').css('min-width', String(p)+'px');
+      
+      $('.mouseover').hide();
+      $('.corner').css('height', String($('.links').height())+'px');
+
+      //$('.mainScroll').css('height', String($(window).height()-$('.header').height()-10)+'px').css('margin-top', String($('.header').height()+10)+'px');
+
+      if ($('.mainContent').height() > $('.mainScroll').height()) {
+       $('.mainContent').css('width', String(Math.floor($('.mainScroll').width()-15))+'px');
+      }
+      else {
+       $('.mainContent').css('width', String(Math.floor($('.mainScroll').width()))+'px');
+      }
+
+      $('.topicbox').css('width', String(Math.floor($('.post').width()-$('.userbox').width())-72)+'px');
+      $('.header').css('width', String($(window).width()-30)+'px');
+      
+      $('.button').css('height', $('button').width()+'px').css('max-height', $('button').height()+'px');
+      $('.users').css('height', String( $(window).height() -$('#bTitle').height()-$('.t2').height()-$('#uTitle').height()+1 )+'px');
+      
+      if ($(window).width() <= 660) {
+       $('#extend').show();
+       $('.mainScroll').css('width', String($(window).width()-30)+'px');
+       $('.header').css('width', String($(window).width()-30)+'px');
+       $('.mainContentResize').css('width', '100%');
+       //$('.hidden').fadeIn(0);
+      }
+      else {
+       $('#extend').hide();
+       $('.mainScroll').css('width', String($(window).width()-170)+'px');
+       $('.header').css('width', String($(window).width()-170)+'px');
+       $('.mainContentResize').css('width', '70%');
+      }
+      x++;
+     }
+     else {
+      clearInterval(interval);
+     }
+    }, 25)
+    
+    
+    var toggle = 0;
+    
+    $(window).resize(function(){
+     
+     if ($(window).width() <= 660) {
+      $('.mainScroll').css('width', String($(window).width()-30)+'px').css('height', String($(window).height())+'px');
+      $('.header').css('width', String($(window).width()-30)+'px');
+      $('.sidebar').animate({right: '-140px'}, 0);
+      $('.mainContentResize').css('width', '100%');
+      $('#extend').html('<<').show();
+      toggle = 0;
+      //$('.hidden').fadeIn(300);
+     }
+     else {
+      $('.mainScroll').css('width', String($(window).width()-170)+'px').css('height', String($(window).height())+'px');
+      $('.header').css('width', String($(window).width()-170)+'px');
+      $('.sidebar').animate({right: '0px'}, 0);
+      $('.mainContentResize').css('width', '70%');
+      $('#extend').html('>>').hide();
+      toggle = 1;
+      //$('.hidden').fadeOut(300);
+     }
+     //$('.mainScroll').css('height', String($(window).height())+'px').css('height', String($(window).height()-$('.header').height()-10)+'px').css('margin-top', String($('.header').height()+10)+'px');
+     
+     if ($('.mainContent').height() > $('.mainScroll').height()) {
+      $('.mainContent').css('width', String(Math.floor($('.mainScroll').width()-15))+'px');
+     }
+     else {
+      $('.mainContent').css('width', String(Math.floor($('.mainScroll').width()))+'px');
+     }
+     
+     $('.topicbox').css('width', String(Math.floor($('.post').width()-$('.userbox').width())-72)+'px');
+     $('.users').css('height', String( $(window).height() -$('#bTitle').height()-$('.t2').height()-$('#uTitle').height()+1 )+'px');
+     
+     
+     for (var i = 0; i < posts.length; i++) {
+      var j = String(i+1);
+      $('.post:nth-child('+j+')').css('height', Math.ceil($('.post:nth-child('+j+') .topicbox').height()+20)+'px');
+      $('.post:nth-child('+j+') .userbox').css('height', $('#topic'+i).height()+'px');
+     }
+    });
+    
+    
+    $('#extend').click(function(){
+     $('.sidebar').animate({right: String(toggle*-140)+'px'}, 300);
+     if (toggle == 1) {
+      toggle = 0;
+      $('#extend').delay(300).fadeOut(300, function(){
+       $('#extend').html('<<').fadeIn(300);
+       //$('.hidden').fadeIn(300);
+      });
+     }
+     else {
+      toggle = 1;
+      $('#extend').delay(300).fadeOut(300, function(){
+       $('#extend').html('>>').fadeIn(300);
+       //$('.hidden').fadeOut(300);
+      });
+     }
+    });
+    
+    $('#buttont0').click(function(){
+     console.log($('#hid0').css('display'));
+     if ($('#hid0').css('display') == 'none') {
+      $('.hidden').fadeOut(0);
+      $('#hid0').fadeIn(300);
+     }
+    });
+    $('#buttont1').click(function(){
+     console.log($('#hid1').css('display'));
+     if ($('#hid1').css('display') == 'none') {
+      $('.hidden').fadeOut(0);
+      $('#hid1').fadeIn(300);
+     }
+    });
+    $('#buttont2').click(function(){
+     console.log($('#hid2').css('display'));
+     if ($('#hid2').css('display') == 'none') {
+      $('.hidden').fadeOut(0);
+      $('#hid2').fadeIn(300);
+     }
+    });
+    $('#buttont3').click(function(){
+     console.log($('#hid3').css('display'));
+     if ($('#hid3').css('display') == 'none') {
+      $('.hidden').fadeOut(0);
+      $('#hid3').fadeIn(300);
+     }
+    });
+    
+    $('button').mouseenter(function(){
+     var num = this.id.substring(6, this.id.length);
+     $('#link'+num).show();
+     $('#link'+num).css('left', String(-1*$('#link'+num).width()-20)+'px');
+     $('button').mouseleave(function(){
+      $('#link'+num).hide();
+     });
+    });
+    
+   });
+  </script>
+ </head>
+    
+ <body>
+  <section class="mainScroll">
+   <div class="mainContent">
+    <div class="mainContentResize">
+     <article class="post" id="post0">
+
+      <div class="topicbox" id="topic0">
+       <div class="topicTitle"><div><a href="/">MLR Redesign</a></div></div>
+       <div class="topicDescription">
+        <p>
+         I'm Derpy Hooves you can't deny I think I forgot how to fly...
+        </p>
+       </div>
+      </div>
+      <div class="userbox">
+       <div class="user">Author: <a href="/">Circuitfry</a><br/>Last Post by: <a href="/">Circuitfry</a></div>
+       <br/><div class="date">11/2/13</div>
+      </div>
+      <div class="postoptions">
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn01"><img src="icons/White/sunglassers.png" /><span class="mouseover" id="linkn01">
+       <span style="color:#55aadd;">Last Unread Post</span><br/>
+       Read the newest post you haven't read, yet.</span></button></a>
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn02"><img src="icons/White/Next Track.png" /><span class="mouseover" id="linkn02">
+       <span style="color:#55aadd;">Last Post</span><br/>
+       Read the newest post in the topic.</span></button></a>
+      </div>
+     </article>
+     
+     <article class="post" id="post1">
+
+      <div class="topicbox" id="topic1">
+       <div class="topicTitle"><div><a href="/">MLR Redesign</a></div></div>
+       <div class="topicDescription">
+        <p>
+         Empty your fridge...
+        </p>
+       </div>
+      </div>
+      <div class="userbox">
+       <div class="user">Author: <a href="/">Circuitfry</a><br/>Last Post by: <a href="/">Circuitfry</a></div>
+       <br/><div class="date">11/3/13</div>
+      </div>
+      <div class="postoptions">
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn11"><img src="icons/White/sunglassers.png" /><span class="mouseover" id="linkn11">
+       <span style="color:#55aadd;">Last Unread Post</span><br/>
+       Read the newest post you haven't read, yet.</span></button></a>
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn12"><img src="icons/White/Next Track.png" /><span class="mouseover" id="linkn12">
+       <span style="color:#55aadd;">Last Post</span><br/>
+       Read the newest post in the topic.</span></button></a>
+      </div>
+     </article>
+     
+     <article class="post" id="post2">
+
+      <div class="topicbox" id="topic2">
+       <div class="topicTitle"><div><a href="/">MLR Redesign</a></div></div>
+       <div class="topicDescription">
+        <p>
+         I'm Derpy Hooves you can't deny I think I forgot how to fly...
+        </p>
+       </div>
+      </div>
+      <div class="userbox">
+       <div class="user">Author: <a href="/">Circuitfry</a><br/>Last Post by: <a href="/">Circuitfry</a></div>
+       <br/><div class="date">11/2/13</div>
+      </div>
+      <div class="postoptions">
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn21"><img src="icons/White/sunglassers.png" /><span class="mouseover" id="linkn21">
+       <span style="color:#55aadd;">Last Unread Post</span><br/>
+       Read the newest post you haven't read, yet.</span></button></a>
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn22"><img src="icons/White/Next Track.png" /><span class="mouseover" id="linkn22">
+       <span style="color:#55aadd;">Last Post</span><br/>
+       Read the newest post in the topic.</span></button></a>
+      </div>
+     </article>
+     
+     <article class="post" id="post3">
+
+      <div class="topicbox" id="topic3">
+       <div class="topicTitle"><div><a href="/">MLR Redesign</a></div></div>
+       <div class="topicDescription">
+        <p>
+         Empty your fridge...
+        </p>
+       </div>
+      </div>
+      <div class="userbox">
+       <div class="user">Author: <a href="/">Circuitfry</a><br/>Last Post by: <a href="/">Circuitfry</a></div>
+       <br/><div class="date">11/3/13</div>
+      </div>
+      <div class="postoptions">
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn31"><img src="icons/White/sunglassers.png" /><span class="mouseover" id="linkn31">
+       <span style="color:#55aadd;">Last Unread Post</span><br/>
+       Read the newest post you haven't read, yet.</span></button></a>
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn32"><img src="icons/White/Next Track.png" /><span class="mouseover" id="linkn32">
+       <span style="color:#55aadd;">Last Post</span><br/>
+       Read the newest post in the topic.</span></button></a>
+      </div>
+     </article>
+     
+     <article class="post" id="post4">
+
+      <div class="topicbox" id="topic4">
+       <div class="topicTitle"><div><a href="/">MLR Redesign</a></div></div>
+       <div class="topicDescription">
+        <p>
+         I'm Derpy Hooves you can't deny I think I forgot how to fly...
+        </p>
+       </div>
+      </div>
+      <div class="userbox">
+       <div class="user">Author: <a href="/">Circuitfry</a><br/>Last Post by: <a href="/">Circuitfry</a></div>
+       <br/><div class="date">11/2/13</div>
+      </div>
+      <div class="postoptions">
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn41"><img src="icons/White/sunglassers.png" /><span class="mouseover" id="linkn41">
+       <span style="color:#55aadd;">Last Unread Post</span><br/>
+       Read the newest post you haven't read, yet.</span></button></a>
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn42"><img src="icons/White/Next Track.png" /><span class="mouseover" id="linkn42">
+       <span style="color:#55aadd;">Last Post</span><br/>
+       Read the newest post in the topic.</span></button></a>
+      </div>
+     </article>
+     
+     <article class="post" id="post5">
+
+      <div class="topicbox" id="topic5">
+       <div class="topicTitle"><div><a href="/">MLR Redesign</a></div></div>
+       <div class="topicDescription">
+        <p>
+         Empty your fridge...
+        </p>
+       </div>
+      </div>
+      <div class="userbox">
+       <div class="user">Author: <a href="/">Circuitfry</a><br/>Last Post by: <a href="/">Circuitfry</a></div>
+       <br/><div class="date">11/3/13</div>
+      </div>
+      <div class="postoptions">
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn51"><img src="icons/White/sunglassers.png" /><span class="mouseover" id="linkn51">
+       <span style="color:#55aadd;">Last Unread Post</span><br/>
+       Read the newest post you haven't read, yet.</span></button></a>
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn52"><img src="icons/White/Next Track.png" /><span class="mouseover" id="linkn52">
+       <span style="color:#55aadd;">Last Post</span><br/>
+       Read the newest post in the topic.</span></button></a>
+      </div>
+     </article>
+     
+     <article class="post" id="post6">
+
+      <div class="topicbox" id="topic6">
+       <div class="topicTitle"><div><a href="/">MLR Redesign</a></div></div>
+       <div class="topicDescription">
+        <p>
+         I'm Derpy Hooves you can't deny I think I forgot how to fly...
+        </p>
+       </div>
+      </div>
+      <div class="userbox">
+       <div class="user">Author: <a href="/">Circuitfry</a><br/>Last Post by: <a href="/">Circuitfry</a></div>
+       <br/><div class="date">11/2/13</div>
+      </div>
+      <div class="postoptions">
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn61"><img src="icons/White/sunglassers.png" /><span class="mouseover" id="linkn61">
+       <span style="color:#55aadd;">Last Unread Post</span><br/>
+       Read the newest post you haven't read, yet.</span></button></a>
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn62"><img src="icons/White/Next Track.png" /><span class="mouseover" id="linkn62">
+       <span style="color:#55aadd;">Last Post</span><br/>
+       Read the newest post in the topic.</span></button></a>
+      </div>
+     </article>
+     
+     <article class="post" id="post7">
+
+      <div class="topicbox" id="topic7">
+       <div class="topicTitle"><div><a href="/">MLR Redesign</a></div></div>
+       <div class="topicDescription">
+        <p>
+         Empty your fridge...
+        </p>
+       </div>
+      </div>
+      <div class="userbox">
+       <div class="user">Author: <a href="/">Circuitfry</a><br/>Last Post by: <a href="/">Circuitfry</a></div>
+       <br/><div class="date">11/3/13</div>
+      </div>
+      <div class="postoptions">
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn71"><img src="icons/White/sunglassers.png" /><span class="mouseover" id="linkn71">
+       <span style="color:#55aadd;">Last Unread Post</span><br/>
+       Read the newest post you haven't read, yet.</span></button></a>
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn72"><img src="icons/White/Next Track.png" /><span class="mouseover" id="linkn72">
+       <span style="color:#55aadd;">Last Post</span><br/>
+       Read the newest post in the topic.</span></button></a>
+      </div>
+     </article>
+     
+     <article class="post" id="post8">
+
+      <div class="topicbox" id="topic8">
+       <div class="topicTitle"><div><a href="/">MLR Redesign</a></div></div>
+       <div class="topicDescription">
+        <p>
+         Everyday there is one of us who takes a note of the phenomenon when we are honest, loyal, when we are generous and kind, when we share and talk and laugh, when we give and hug and love. When there is true magic, that's who we are.
+        </p>
+       </div>
+      </div>
+      <div class="userbox">
+       <div class="user">Author: <a href="/">Circuitfry</a><br/>Last Post by: <a href="/">Circuitfry</a></div>
+       <br/><div class="date">11/2/13</div>
+      </div>
+      <div class="postoptions">
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn81"><img src="icons/White/sunglassers.png" /><span class="mouseover" id="linkn81">
+       <span style="color:#55aadd;">Last Unread Post</span><br/>
+       Read the newest post you haven't read, yet.</span></button></a>
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn82"><img src="icons/White/Next Track.png" /><span class="mouseover" id="linkn82">
+       <span style="color:#55aadd;">Last Post</span><br/>
+       Read the newest post in the topic.</span></button></a>
+      </div>
+     </article>
+     
+     <article class="post" id="post9">
+
+      <div class="topicbox" id="topic9">
+       <div class="topicTitle"><div><a href="/">MLR Redesign</a></div></div>
+       <div class="topicDescription">
+        <p>
+         Empty your fridge...
+        </p>
+       </div>
+      </div>
+      <div class="userbox">
+       <div class="user">Author: <a href="/">Circuitfry</a><br/>Last Post by: <a href="/">Circuitfry</a></div>
+       <br/><div class="date">11/3/13</div>
+      </div>
+      <div class="postoptions">
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn91"><img src="icons/White/sunglassers.png" /><span class="mouseover" id="linkn91">
+       <span style="color:#55aadd;">Last Unread Post</span><br/>
+       Read the newest post you haven't read, yet.</span></button></a>
+       <a href="MLR Testing.html"><button class="toolLink" id="buttonn92"><img src="icons/White/Next Track.png" /><span class="mouseover" id="linkn92">
+       <span style="color:#55aadd;">Last Post</span><br/>
+       Read the newest post in the topic.</span></button></a>
+      </div>
+     </article>
+    
+    </div>
+   </div>
+  </section>
+  
+  <div class="header">
+   Welcome to Element Six, where We are the Future.
+  </div>
+  
+  <section class="sidebar">
+   
+   <div class="t1">
+    
+    <button id="extend"><<</button>
+    
+    <div class="mouseOverButtons">
+     <div class="hidden" id="hid0">
+      <a href="MLR Testing.html"><button class="toolLink" id="button00"><img src="icons/White/newtopic.png" /><span class="mouseover" id="link00">
+      <span style="color:#55aadd;">Post New Topic</span><br/>
+      Create a new topic in this forum.</span></button></a>
+      
+      <a href="MLR Testing.html"><button class="toolLink" id="button01"><img src="icons/White/gotopage.png" /><span class="mouseover" id="link01">
+      <span style="color:#55aadd;">Go To Page</span><br/>
+      Flip to a certain page on the forum.</span></button></a>
+     </div>
+    
+     <div class="hidden" id="hid1">
+      <a href="MLR Testing.html"><button class="toolLink" id="button10"><img src="icons/White/Music.png" /><span class="mouseover" id="link10">
+      <span style="color:#55aadd;">General Music Feedback and Advice</span><br/>
+      Let's hear what you've got. Feedback is encouraged.<br/>Please embed EQBeats, Youtube or Soundcloud.</span></button></a>
+      
+      <a href="MLR Testing.html"><button class="toolLink" id="button11"><img src="icons/White/treble.png" /><span class="mouseover" id="link11">
+      <span style="color:#55aadd;">Composition and Music Theory Advice</span><br/>
+      From scales and semitones to pentatonics and cadence patterns.<br/>It's all about the science behind the expression, here.</span></button></a>
+      
+      <a href="MLR Testing.html"><button class="toolLink" id="button12"><img src="icons/White/DJ.png" /><span class="mouseover" id="link12">
+      <span style="color:#55aadd;">Hardware/Tracking/Performance Advice</span><br/>
+      Want to know more about cables and adapters? Is DJing the right way to go?<br/>Which violins go well with your guitar? It's time to find out!</span></button></a>
+      
+      <a href="MLR Testing.html"><button class="toolLink" id="button13"><img src="icons/White/recordspin.png" /><span class="mouseover" id="link13">
+      <span style="color:#55aadd;border-bottom:solid 1px;border-color:#55aa55;">Resources, Software, and Mixing Advice</span><br/>
+      Sample Packs? VSTs? DAWs? EQ? What DOES the knee on the Compressor do?<br/>All computer-related music making topics belong here!</span></button></a>
+
+      <a href="MLR Testing.html"><button class="toolLink" id="button14"><img src="icons/White/love.png" /><span class="mouseover" id="link14">
+      <span style="color:#55aadd;">My Little Pony: Friendship is Magic</span><br/>
+      We all love it, otherwise it's unlikely you'd be here.</span></button></a>
+      
+      <a href="MLR Testing.html"><button class="toolLink" id="button15"><img src="icons/White/horse.png" /><span class="mouseover" id="link15">
+      <span style="color:#55aadd;">Pony Fan Works Gossip</span><br/>
+      Non-music works of yours and others' making.<br/>Member specific threads are encouraged (e.g. a sketchbook).</span></button></a>
+      
+      <a href="MLR Testing.html"><button class="toolLink" id="button16"><img src="icons/White/project.png" /><span class="mouseover" id="link16">
+      <span style="color:#55aadd;">Pony Fan Project Recruitment</span><br/>
+      Do you have a project proposal that should involve music?<br/>See if the community would like to help you with such a project!</span></button></a>
+      
+      <a href="MLR Testing.html"><button class="toolLink" id="button17"><img src="icons/White/announce.png" /><span class="mouseover" id="link17">
+      <span style="color:#55aadd;">Announcements</span><br/>
+      It is very important that you pay attention to this forum.</span></button></a>
+      
+      <a href="MLR Testing.html"><button class="toolLink" id="button18"><img src="icons/White/3.png" /><span class="mouseover" id="link18">
+      <span style="color:#55aadd;">Challenges, Contests, and Events</span><br/>
+      Current events we're participating in.</span></button></a>
+      
+      <a href="MLR Testing.html"><button class="toolLink" id="button19"><img src="icons/White/57.png" /><span class="mouseover" id="link19">
+      <span style="color:#55aadd;">Community Discussion/Soapbox</span><br/>
+      Sports, politics, movies, videogames, questionable hobbies, photos from your family vacation, etc.<br/>Talk about stuff! But do try to stay on topic.</span></button></a>
+      
+      <a href="MLR Testing.html"><button class="toolLink" id="button1A"><img src="icons/White/Next Track.png" /><span class="mouseover" id="link1A"><span style="color:#55aadd;">Redirects</span><br/>Links that we recommend.</span></button></a>
+      
+      <a href="MLR Testing.html"><button class="toolLink" id="button1B"><img src="icons/White/Library.png" /><span class="mouseover" id="link1B"><span style="color:#55aadd;">Archive</span><br/>Old Topics.</span></button></a>
+
+     </div>
+     
+     <div class="hidden" id="hid2">
+      <a href="MLR Testing.html"><button class="toolLink" id="button20"><img src="icons/White/Help.png" /><span class="mouseover" id="link20">FAQ</span></button></a>
+      <a href="MLR Testing.html"><button class="toolLink" id="button21"><img src="icons/White/Search.png" /><span class="mouseover" id="link21">Search</span></button></a>
+      <a href="MLR Testing.html"><button class="toolLink" id="button22"><img src="icons/White/Calender 2.png" /><span class="mouseover" id="link22">Events</span></button></a>
+      <a href="MLR Testing.html"><button class="toolLink" id="button23"><img src="icons/White/Conversion Dot.png" /><span class="mouseover" id="link23">Unanswered Posts</span></button></a>
+      <a href="MLR Testing.html"><button class="toolLink" id="button24"><img src="icons/White/Conversion.png" /><span class="mouseover" id="link24">Active Topics</span></button></a>
+      <a href="MLR Testing.html"><button class="toolLink" id="button25"><img src="icons/White/User Group.png" /><span class="mouseover" id="link25">Members</span></button></a>
+      <a href="MLR Testing.html"><button class="toolLink" id="button26"><img src="icons/White/Control Panel.png" /><span class="mouseover" id="link26">Control Panel</span></button></a>
+     </div>
+     
+     <div class="hidden" id="hid3">
+	  <a href="MLR Testing.html"><button class="toolLink" id="button30"><img src="icons/White/tumblr.png" /><span class="mouseover" id="link30">Blog</span></button></a>
+	  <a href="MLR Testing.html"><button class="toolLink" id="button31"><img src="icons/White/wiki.png" /><span class="mouseover" id="link31">Wiki</span></button></a>
+	  <a href="MLR Testing.html"><button class="toolLink" id="button32"><img src="icons/White/vplay.png" /><span class="mouseover" id="link32">Vadio</span></button></a>
+     </div>
+    </div>
+   </div>
+   
+   <div class="sideContent">
+    <div class="corner">
+     
+     <div class="t2">
+      <button class="toolLink" id="buttont0"><img src="icons/Black/67.png" /><span class="mouseover" id="linkt0">Current Controls</span></button>
+      <button class="toolLink" id="buttont1"><img src="icons/Black/16.png" /><span class="mouseover" id="linkt1">Forums</span></button>
+      <button class="toolLink" id="buttont2"><img src="icons/Black/39.png" /><span class="mouseover" id="linkt2">Site Tools</span></button>
+      <button class="toolLink" id="buttont3"><img src="icons/Black/46.png" /><span class="mouseover" id="linkt3">Zones</span></button>
+     </div>
+     
+     <div class="links">
+     
+      <div class="logo">
+       <img src="E6Logo.png"/>
+      </div>
+      
+      <nav>
+       <div class="linksTitle"><div><button class="navlinklg">Login</button></div></div>
+       <div class="linksTitle"><div><button class="navlinklg">Register</button></div></div>
+       <div class="linksTitle"><div><a class="navlink" href="MLR Testing.html">Mail [<span id="mCount">x</span>]</a></div></div>
+       <div class="linksTitle"><div><a class="navlink" href="MLR Testing.html">Radio</a></div></div>
+       <div class="linksTitle"><div><a class="navlink" href="MLR Testing.html">IRC [Flash]</a></div></div>
+      </nav>
+     </div>
+     
+    </div>
+    
+    <div id="bTitle">
+     <div id="bTitleLeft">
+      <img src="icons/White/birthday.png"/>
+     </div>
+     <div id="bTitleMid">
+      <div>
+       <a href="">Birthday Boy - 16</a>
+      </div>
+     </div>
+    </div>
+    
+    <div id="uTitle">
+     <div id="bTitleLeft">
+      <img src="icons/White/members.png"/>
+     </div>
+   	 <div id="bTitleMid">
+   	  <div>
+   	   Users Online:
+   	  </div>
+   	 </div>
+   	</div>
+    
+    <div class="users">
+     <div class="uScroll">
+      <a class="userlinks" title="View Profile" href="MLR Testing.html">Circuitfry</a>
+      <a class="userlinks" title="View Profile" href="MLR Testing.html">asdf</a>
+      <a class="userlinks" title="View Profile" href="MLR Testing.html">asdf</a>
+      <a class="userlinks" title="View Profile" href="MLR Testing.html">asdf</a>
+      <a class="userlinks" title="View Profile" href="MLR Testing.html">asdf</a>
+      <a class="userlinks" title="View Profile" href="MLR Testing.html">asdf</a>
+      <a class="userlinks" title="View Profile" href="MLR Testing.html">asdf</a>
+      <a class="userlinks" title="View Profile" href="MLR Testing.html">asdf</a>
+      <a class="userlinks" title="View Profile" href="MLR Testing.html">asdf</a>
+      <a class="userlinks" title="View Profile" href="MLR Testing.html">asdf</a>
+      <a class="userlinks" title="View Profile" href="MLR Testing.html">asdf</a>
+      <a class="userlinks" title="View Profile" href="MLR Testing.html">asdf</a>
+      <a class="userlinks" title="View Profile" href="MLR Testing.html">asdf</a>
+      <a class="userlinks" title="View Profile" href="MLR Testing.html">Circuitfry</a>
+     </div>
+    </div>
+   </div>
+   
+  </section>
+  
+  <div id="intro">
+   <p>Element Six</p>
+   <div class="iwrapper">
+    <div class="iButtons">
+        <button class="login" id="login">
+            login
+        </button>
+        <button class="login" id="create">
+            register
+        </button>
+        <button class="login" id="continue">
+            cancel
+        </button>
+    </div>
+    <div class="lin">
+     <form>
+      <div class="accountinput">username: <input type="text" name="linUsr" value="username" onfocus="if(this.value == 'username'){this.value = '';}" onblur="if(this.value == ''){this.value='username';}"/></div>
+      <div class="accountinput">password: <input type="password" name="linPwd" value="password" onfocus="if(this.value == 'password'){this.value = '';}" onblur="if(this.value == ''){this.value='password';}"/></div>
+      <div class="submit">
+       <input id="submit" type="submit" value="submit"/>
+       <input id="submit" type="submit" value="return"/>
+      </div>
+     </form>
+    </div>
+    <div class="sup">
+     <form>
+      <div class="accountinput">username: <input type="text" name="username" value="username" onfocus="if(this.value == 'username'){this.value = '';}" onblur="if(this.value == ''){this.value='username';}"/></div>
+      <div class="accountinput">email address: <input type="text" name="email" value="email" onfocus="if(this.value == 'email'){this.value = '';}" onblur="if(this.value == ''){this.value='email';}"/></div>
+      <div class="accountinput">confirm email address: <input type="text" name="email2" value="email" onfocus="if(this.value == 'email'){this.value = '';}" onblur="if(this.value == ''){this.value='email';}"/></div>
+      <div class="accountinput">password: <input type="password" name="pwd" value="password" onfocus="if(this.value == 'password'){this.value = '';}" onblur="if(this.value == ''){this.value='password';}"/></div>
+      <div class="accountinput">confirm password: <input type="password" name="pwd2" value="password" onfocus="if(this.value == 'password'){this.value = '';}" onblur="if(this.value == ''){this.value='password';}"/></div>
+      <div class="accountinput">language:
+      <select>
+       <option value="brit">British English</option>
+      </select>
+      </div>
+      <div class="accountinput">
+       timezone:
+       <select>
+        <option value="m12">[UTC - 12] Baker Island Time</option>
+        <option value="m11">[UTC - 11] Niue Time, Samoa Standard Time</option>
+        <option value="m10">[UTC - 10] Hawaii-Aleutian Standard Time, Cook Island Time</option>
+        <option value="m95">[UTC - 9:30] Marquesas Islands Time</option>
+        <option value="m9">[UTC - 9] Alaska Standard Time, Gambier Island Time</option>
+        <option value="m8">[UTC - 8] Pacific Standard Time</option>
+        <option value="m7">[UTC - 7] Mountain Standard Time</option>
+        <option value="m6">[UTC - 6] Central Standard Time</option>
+        <option value="m5">[UTC - 5] Eastern Standard Time</option>
+        <option value="m45">[UTC - 4:30] Venezuela Standard Time</option>
+        <option value="m4">[UTC - 4] Atlantic Standard Time</option>
+        <option value="m4">[UTC - 3:30] Newfoundland Standard Time</option>
+        <option value="m3">[UTC - 3] Amazon Standard Time, Central Greenland Time</option>
+        <option value="m2">[UTC - 2] Fernando de Noronha Time, South Georgia & the South Sandwich Islands Time</option>
+        <option value="m1">[UTC - 1] Azores Standard Time, Cape Verde Time, Eastern Greenland Time</option>
+        <option value="same">[UTC] Western European Time, Greenwich Mean Time</option>
+        <option value="p1">[UTC + 1] Central European Time, West African Time</option>
+        <option value="p2">[UTC + 2] Eastern European Time, Central African Time</option>
+        <option value="p3">[UTC + 3] Moscow Standard Time, East African Time</option>
+        <option value="p4">[UTC + 3:30] Iran Standard Time</option>
+        <option value="p5">[UTC + 4] Gulf Standard Time, Samara Standard Time</option>
+        <option value="p45">[UTC + 4:30] Afghanistan Time</option>
+        <option value="p5">[UTC + 5] Pakistan Standard Time, Yekaterinburg Standard Time</option>
+        <option value="p55">[UTC + 5:30] Indian Standard Time, Sri Lanka Time</option>
+        <option value="p575">[UTC + 5:45] Nepal Time</option>
+        <option value="p6">[UTC + 6] Bangladesh Time, Bhutan Time, Novosibirisk Standard Time</option>
+        <option value="p65">[UTC + 6:30] Cocos Islands Time, Myanmar Time</option>
+        <option value="p7">[UTC + 7] Indochina Time, Krasnoyarsk Standard Time</option>
+        <option value="p8">[UTC + 8] Chinese Standard Time, Australian Western Standard Time, Irkutsk Standard Time</option>
+        <option value="p875">[UTC + 8:45] Southeastern Western Australia Standard Time</option>
+        <option value="p9">[UTC + 9] Japan Standard Time, Korea Standard Time, Chita Standard Time</option>
+        <option value="p95">[UTC + 9:30] Australian Central Standard Time</option>
+        <option value="p10">[UTC + 10] Australian Eastern Standard Time, Vladivostok Standard Time</option>
+        <option value="p105">[UTC + 10:30] Lord Howe Standard Time</option>
+        <option value="p11">[UTC + 10] Solomon Island Time, Magadan Standard Time</option>
+        <option value="p115">[UTC + 11:30] Norfolk Island Time</option>
+        <option value="p12">[UTC + 12] New Zealand Time, Fiji Time, Kamchatka Standard Time</option>
+       </select>
+      </div>
+      <div class="accountinput">OS: <input type="text" name="os" value="Slackware with Unity" onfocus="if(this.value == 'Slackware with Unity'){this.value = '';}" onblur="if(this.value == ''){this.value='Slackware with Unity';}"/></div>
+      <div class="accountinput">primary DAW: <input type="text" name="daw" value="LMMS" onfocus="if(this.value == 'LMMS'){this.value = '';}" onblur="if(this.value == ''){this.value='LMMS';}"/></div>
+      <div class="submit">
+       <input id="submit" type="submit" value="submit"/>
+       <input id="submit" type="submit" value="return"/>
+      </div>
+     </form>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>
