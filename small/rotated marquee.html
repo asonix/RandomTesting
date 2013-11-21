@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html style="margin: 0px;padding: 0px; height: 100%">
+    <head>
+        <title>Page Title</title>
+        <script languange="javascript" type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.js"></script>
+	<script>
+            $(document).ready(function() {
+                function Matrix() {
+                    this.matrix = ['a','b','c','d','e','f','g','h','i','j','k','l','?','n','o','p','q','r','s','t','u','v','!','x','y','z','1','2','3','4','5','6','7','8','9','0'];
+                    this.individual = [];
+                    this.endresult = "";
+                    for (var i = 0; i < 4; i++) {
+                        this.individual[this.individual.length] = this.matrix[Math.floor(Math.random()*36)];
+                    }
+                    for (var i in individual) {
+                        this.endresult = this.endresult + "<div class='char'>" + this.individual[i] + "</div>";
+                    }
+                    return endresult;
+                }
+                var t = 0;
+                var o;
+                var m = setInterval(function() {
+                    o = $(document).height();
+                    h = $('.cong').height();
+                    if (h < o) {
+                        if (t < Math.floor(Math.random()*80)) {
+                            $('.cong').append(Matrix());
+                            t++;
+                        }
+                        else {
+                            $('.cong').append("</br>");
+                            t = 0;
+                            o++;
+                        }
+                    }
+                    else {
+                        clearInterval(m);
+                    }
+                },25);
+            });
+        </script>
+        <style>
+            body {
+                height: 100%;
+                width: 100%;
+                margin: 0px;
+                padding: 0px;
+                color: #e5e5e5;
+                background-color: #0a0a0a;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .height {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .cong {
+                font-family: Tahoma;
+                position: relative;
+                height: auto;
+                width: auto;
+                margin: 0px;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+                padding: 0px;
+            }
+            .char {
+                -webkit-transform:rotate(90deg);
+                -ms-transform:rotate(90deg);
+                transform:rotate(90deg);
+                float: left;
+                margin: 0px;
+                padding: 0px;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div>
+            <div class="height"><div class="cong"></div></div>
+        </div>
+    </body>
+</html>

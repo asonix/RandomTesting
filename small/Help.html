@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        
+        <title>help</title>
+        
+        <script src="jquery-2.0.3.js"></script>
+        <script>
+            $(document).ready(function(){
+                var m = setInterval(function(){
+                    //$('.p').animate({left: String(-$('.p').width())+'px'}, 8000).animate({left: '0px'}, 800);
+                    $('.p').animate({left: String(-$('.p').width()+$('div').width())+'px'}, 10000).animate({left: '0px'}, 1000);
+                }, 1000);
+            });
+        </script>
+        
+    </head>
+    
+    <body style="background-color: #0000ff">
+        
+        <div style="margin-left: auto; margin-top: 5%; margin-right: auto; text-align: center; border-radius: 5px; padding: 0px; font-size: 200px; height: 250px; max-width: 800px; overflow: hidden; color: #ff0000; background-color: #00ff00; width: 100%; display: block">
+            <p class="p" style="padding: 0px; margin: 0px; position: relative; top: 0px; left: auto; right: auto; white-space: nowrap; display: inline-block; width: auto">
+                MILES IS A CUTIE WHO WOULD LOOK ADORABLE IN A MAID OUTFIT. I SHIP KELLER x MILES!
+            </p>
+        </div>
+        
+    </body>
+</html>

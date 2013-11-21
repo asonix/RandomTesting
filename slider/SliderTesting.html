@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Slider Test</title>
+        <meta charset="utf-8"/>
+        <link href="slider.css" type="text/css" rel="stylesheet"/>
+    </head>
+    <body style="margin: 0px;">
+        <div class="sliderPackage">
+            <div class="sliderleft">
+                <button class="button" id="buttonLeft">&nbsp;</button>
+            </div>
+            
+            <div class="slider">
+                <div class="sliderContainer">
+                
+                    <div class="sliderContent">
+                        <div class="scontent">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed condimentum velit, non porta dolor. Praesent consequat lobortis tellus et aliquam. Sed neque metus, ullamcorper feugiat adipiscing quis, pellentesque sit amet sapien. Duis in sagittis ligula. Cras lobortis accumsan dui, vel faucibus felis porttitor at. Donec at scelerisque ipsum. Phasellus luctus varius ligula, quis mollis lacus dapibus in.
+                        </div class="scontent">
+                    </div>
+                
+                    <div class="sliderContent">
+                        <div class="scontent">
+                            Vivamus semper nisl id nisi posuere, at ultricies odio sagittis. Nulla euismod iaculis odio, vel ultricies est ultrices ut. In id erat venenatis dui luctus posuere. Vivamus eget lectus purus. Aenean iaculis egestas orci vitae suscipit. Vivamus interdum enim lacus, ac cursus libero cursus sed. Nunc id diam eros. Etiam sed mauris faucibus, commodo leo eget, egestas erat. Integer at accumsan orci, sit amet mattis nunc. Nunc diam dui, semper ut dolor vitae, mollis luctus sem. Sed varius convallis tortor ac dapibus.
+                        </div class="scontent">
+                    </div>
+                
+                    <div class="sliderContent">
+                        <div class="scontent">
+                            Sed pretium diam sed aliquam tincidunt. Morbi tincidunt condimentum arcu et posuere. Vestibulum porttitor consectetur metus, eu ornare libero dapibus eu. Praesent eget purus eu enim condimentum fermentum et in magna. Nullam sit amet neque a odio blandit congue. Vivamus ut mauris nec risus convallis dignissim. Vivamus eu dignissim sapien. Duis eget feugiat dui. Etiam tincidunt interdum sapien, sed adipiscing sem adipiscing quis. Praesent tempor, urna at aliquam viverra, ipsum dolor feugiat mauris, vitae posuere neque diam eu mi. Aliquam ac elementum augue. Sed dapibus suscipit mi, at mollis quam sollicitudin vel. Sed non felis pulvinar, bibendum risus non, pretium ipsum. Vivamus molestie urna nec tellus vulputate, vel venenatis urna pulvinar.
+                        </div class="scontent">
+                    </div>
+                
+                    <div class="sliderContent">
+                        <div class="scontent">
+                            Cras enim nunc, auctor eu est vestibulum, dapibus posuere nunc. Curabitur interdum et lectus eu hendrerit. Nam at ipsum quis ligula dapibus adipiscing eu vel risus. Praesent tincidunt erat nibh, eu fermentum felis vestibulum volutpat. Sed non ipsum facilisis, dapibus diam at, luctus magna. Aenean semper magna mi. Duis sit amet dui et purus volutpat rhoncus sit amet ac massa. Nulla condimentum placerat quam eget iaculis. Nulla in quam quam. Nullam lorem elit, sollicitudin eu libero vitae, eleifend scelerisque velit. Donec vel justo sit amet velit interdum faucibus eget sit amet odio. Vivamus eleifend velit a tempor fermentum. Integer accumsan lacus eros, eget posuere ligula luctus nec. Nunc tincidunt iaculis enim, nec luctus eros convallis id.
+                        </div class="scontent">
+                    </div>
+                        
+                    <div class="sliderContent">
+                        <div class=scontent>
+                            G'day mate!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sliderright">
+                <button class="button" id="buttonRight">&nbsp;</button>
+            </div>
+            
+            <div class="indicators">
+            </div>
+            <!--jQuery-->
+            <script src="jquery-2.0.3.js"></script>
+            
+            <!--Slider Things-->
+            <script>
+                $(document).ready(function() {
+                    
+                    $('.indic').addClass('current');
+                    
+                    function ResizeCheck() {
+                        var i = 0;
+                        $(window).resize(function() {
+                            var i = 1;
+                        });
+                        return(i);
+                    }
+                    
+                    function ButtonPush(direction) {
+                        
+                        this.containerPosition = Math.abs($('.sliderContainer').css('left').substring(0, $('.sliderContainer').css('left').length-2));
+                        
+                        var sliderWidth = $('.sliderContent').width()*$('.sliderContent').length;
+                        
+                        var c;
+                        var i = $('.sliderContent').length*this.containerPosition/sliderWidth;
+                        var j;
+                        
+                        if (direction == 'right') {
+                            c = '-='+String(Math.round($('.sliderContent').width()));
+                            j = i+1;
+                        }
+                        else {
+                            c = '+='+String(Math.round($('.sliderContent').width()));
+                            j = i-1;
+                        }
+                        
+                        if ((this.containerPosition != 0 || direction != 'left') && (this.containerPosition+$('.sliderContent').width() < $('.sliderContainer').width() || direction != 'right')) {
+                            $('.sliderContainer').animate({left: c}, 300);
+                        }
+                        else if (this.containerPosition == 0 && direction == 'left') {
+                            $('.sliderContainer').animate({left: '-='+String(Math.round($('.sliderContainer').width()-$('.sliderContainer').width()/$('.sliderContent').length))+'px'}, 600);
+                        }
+                        else {
+                            $('.sliderContainer').animate({left: '0'}, 600);
+                        }
+                        
+                        $('.indic').removeClass('current');
+                        if (j == $('.sliderContent').length) {
+                            j = 0;
+                        }
+                        else if (j == -1) {
+                            j = $('.sliderContent').length-1;
+                        }
+                        $('#indi'+(j)).addClass('current');
+                        
+                    }
+                    
+                    var sliderWidth = $('.sliderContent').width()*$('.sliderContent').length;
+                    var buttons = [];
+                    for (var i = 0; i < $('.sliderContent').length; i++) {
+                        if (i == 0) {
+                            $('.indicators').append('<button class="current indic" id="indi'+i+'"></button>');
+                        }
+                        else {
+                            $('.indicators').append('<button class="indic" id="indi'+i+'"></button>');
+                        }
+                    }
+                    
+                    var help = setInterval(function() {ButtonPush('right')}, 5000);
+                    
+                    $('.sliderContainer').css('width', String(sliderWidth)+'px');
+                    
+                    $('#buttonRight').click(function() {
+                        ButtonPush('right');
+                        clearInterval(help);
+                        help = setInterval(function() {ButtonPush('right')}, 5000);
+                    });
+                    $('#buttonLeft').click(function() {
+                        ButtonPush('left');
+                        clearInterval(help);
+                        help = setInterval(function() {ButtonPush('right')}, 5000);
+                    });
+                    
+                    
+                });
+            </script>
+            
+            <!--Sizing Things-->
+            <script>
+                $(document).ready(function() {
+                    
+                    //Resizing
+                    function Resize() {
+                        
+                        //Sizing Ratios
+                        
+                        var five = 5/740*$('.sliderPackage').width(); // 5/740
+                        
+                        var twoEightyTwo = five*56.4;                   	// 282/740
+                        var ten = five*2;                               	// 10/740
+                        var eighteen = five*3.8;                        	// 18/740
+                        var twenty = five*4;                            	// 20/740
+                        var fourty = five*8;                            	// 40/740
+                        var fifty = five*10;                            	// 50/740
+                        var oneNinety = Math.round(twoEightyTwo*190/420);   	// 190/420
+                        var threeNinety = Math.round(twoEightyTwo*390/420); 	// 390/420
+                        var sixFourty = five*128;                       	// 640/740
+                        var sixNinety = five*138;                       	// 690/740
+                        var sevenFourty = five*148;
+                        
+                        
+                        $('.sliderPackage').css('height', String(twoEightyTwo)+'px').css('font-size', String(eighteen)+'px').css('width', '100%');
+                        $('.sliderContainer').css('height', String(twoEightyTwo)+'px');
+                        $('.sliderContent').css('height', String(twoEightyTwo)+'px').css('width', String(Math.floor(sixFourty))+'px');
+                        $('.scontent').css('padding', String(ten)+'px');
+                        $('.slider').css('width', String(sixFourty)+'px').css('height', String(twoEightyTwo)+'px').css('left', String(fifty)+'px');
+                        $('.sliderleft').css('height', String(Math.ceil(twoEightyTwo))+'px').css('width', String(fifty)+'px');
+                        $('.sliderright').css('height', String(Math.ceil(twoEightyTwo))+'px').css('width', String(fifty)+'px').css('left', String(sixNinety)+'px');
+                        $('.button').css('margin-top', String(oneNinety)+'px').css('width', String(fourty)+'px').css('height', String(fourty)+'px').css('border-radius', String(twenty)+'px').css('margin-right', 'auto').css('margin-left', 'auto');
+                        $('.indicators').css('top', String(threeNinety)+'px').css('width', String(sevenFourty)+'px');
+                        $('.indic').css('width', String(ten)+'px').css('height', String(ten)+'px').css('border-radius', String(five)+'px').css('margin-left', String(ten)+'px');
+                        $('.current').css('width', String(ten)+'px').css('height', String(ten)+'px').css('border-radius', String(five)+'px').css('margin-left', String(ten)+'px');
+                        
+                        //More Ratios
+                        var sliderWidth = Math.ceil($('.sliderContent').width())*$('.sliderContent').length;
+                        
+                        $('.sliderContainer').css('width', sliderWidth+'px');
+                        
+                    }
+                    var l = 0;
+                    var temp = setInterval(function(){
+                        if (l < 3) {
+                            l++;
+                            Resize();
+                        }
+                        else {
+                            clearInterval(temp);
+                        }
+                        
+                    }, 25);
+                    
+                    $(window).resize(function() {
+                        
+                        $('.sliderContainer').animate({left: '0px'}, 0);
+                        $('.indic').removeClass('current');
+                        $('#indi0').addClass('current');
+                        Resize();
+                        
+                    });
+                });
+            </script>
+            
+            <!--Buttons-->
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    var buttons = document.getElementsByClassName('indic');
+                    
+                    for (var i = 0; i < buttons.length; i++) {
+                        buttons[i].onclick = function() {
+                            var num = this.id.substring(this.id.length-1, this.id.length);
+                            num = Number(num);
+                            $('.sliderContainer').animate({left: String(Math.round(-1*num*$('.sliderContent').width()))+'px'}, 300);
+                            $('.indic').removeClass('current');
+                            $('#'+this.id).addClass('current');
+                        };
+                    }
+                });
+            </script>
+        </div>
+    </body>
+</html>
