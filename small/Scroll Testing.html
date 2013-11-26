@@ -5,6 +5,22 @@
         <title>Scroll Test</title>
         <meta charset="utf-8"/>
         <style>
+            a {
+                color: #e5e5e5;
+                text-decoration: none;
+            }
+            a:link {
+                color: #e5e5e5;
+            }
+            a:hover {
+                color: #cccccc;
+            }
+            a:visited {
+                color: #e5e5e5;
+            }
+            a:active {
+                color: #e5e5e5;
+            }
             html {
                 height: 100%;
                 color: #e5e5e5;
@@ -17,34 +33,48 @@
                 margin: 0px;
                 height: 100%;
             }
+            .backgrounds {
+                height: 100%;
+            }
             .scrollback {
                 position: relative;
                 height: 100%;
-                width: 70%;
+                width: 100%;
                 background-position: right;
                 background-attachment: fixed;
                 background-size: 100%;
                 text-align: left;
+                margin: 0px;
                 margin-left: auto;
                 margin-right: auto;
                 min-width: 450px;
+                padding: 0px;
+                z-index: 5;
             }
             .overlay {
                 position: absolute;
-                top: 5px;
-                right: 5px;
-                height: auto;
-                width: auto;
-                max-width: 300px;
-                background-image: url('trans-black-75.png');
-                border-radius: 15px;
-                padding: 20px;
+                top: 0px;
+                left: 0px;
+                height: 100%;
+                width: 100%;
+                margin: 0px;
+            }
+            nav {
+                position: fixed;
+                top: 0px;
+                right: 0px;
                 text-align: right;
-                
+                padding: 20px;
+                margin-top: 20px;
+                margin-right: 20px;
+                border-radius: 15px;
+                background-image: url('trans-black-75.png');
+                z-index: 10;
             }
         </style>
         
         <script src="jquery-2.0.3.js" type="text/javascript"></script>
+        
         <script>
             $(document).ready(function(){
                 
@@ -59,7 +89,6 @@
                     }
                 }
                 
-                console.log($('.scrollback').css('height').length-2);
                 
                 function isScrolledIntoView(elem)
                 {
@@ -95,31 +124,167 @@
                 
             });
         </script>
+        <script>
+            $(document).ready(function(){
+                
+                var setColor = '#e5e566';
+                var defColor = 'rgb(229, 229, 229)';
+                
+                $('nav a').css('color', defColor);
+                
+                var j = 0;
+                var currentOff = 0;
+                var lastOff = 0;
+                var onScreen = $(window).scrollTop() - 0.5*$(window).height();
+                
+                for (var i = 1; i < $('.scrollback').length+1; i++) {
+                    
+                    j = i - 1;
+                    currentOff = $('.scrollback:nth-child('+i+')').offset().top;
+                    
+                    console.log(j);
+                    
+                    if (j == 0) {
+                        lastOff = -0.5*$(window).height();
+                    }
+                    else {
+                        lastOff = $('.scrollback:nth-child('+j+')').offset().top;
+                    }
+                    if (currentOff > onScreen && lastOff < onScreen && $('nav a:nth-child('+i+')').css('color') == defColor) {
+                        $('nav a').css('color', defColor);
+                        $('nav a:nth-child('+i+')').css('color', setColor);
+                    }
+                    else if ($(window).scrollTop() == 0) {
+                        $('nav a:nth-child(1)').css('color', setColor);
+                    }
+                }
+                
+                $(window).scroll(function(){
+                    
+                    var j = 0;
+                    var currentOff = 0;
+                    var lastOff = 0;
+                    var onScreen = $(window).scrollTop() - 0.5*$(window).height();
+                    for (var i = 1; i < $('.scrollback').length+1; i++) {
+                        
+                        j = i - 1;
+                        currentOff = $('.scrollback:nth-child('+i+')').offset().top;
+                        
+                        if (j == 0) {
+                            lastOff = -0.5*$(window).height();
+                        }
+                        else {
+                            lastOff = $('.scrollback:nth-child('+j+')').offset().top;
+                        }
+                        if (currentOff > onScreen && lastOff < onScreen && $('nav a:nth-child('+i+')').css('color') == defColor) {
+                            $('nav a').css('color', defColor);
+                            $('nav a:nth-child('+i+')').css('color', setColor);
+                        }
+                    }
+                }).resize(function(){
+                    
+                    var j = 0;
+                    var currentOff = 0;
+                    var lastOff = 0;
+                    var onScreen = $(window).scrollTop() - 0.5*$(window).height();
+                    
+                    for (var i = 1; i < $('.scrollback').length+1; i++) {
+                        
+                        j = i - 1;
+                        currentOff = $('.scrollback:nth-child('+i+')').offset().top;
+                        
+                        if (j == 0) {
+                            lastOff = -0.5*$(window).height();
+                        }
+                        else {
+                            lastOff = $('.scrollback:nth-child('+j+')').offset().top;
+                        }
+                        if (currentOff > onScreen && lastOff < onScreen && $('nav a:nth-child('+i+')').css('color') == defColor) {
+                            $('nav a').css('color', defColor);
+                            $('nav a:nth-child('+i+')').css('color', setColor);
+                        }
+                    }
+                });
+            });
+        </script>
+        <script>
+            $(function() {
+              $('a[href*=#]:not([href=#])').click(function() {
+                if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+                  var target = $(this.hash);
+                  target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                  if (target.length) {
+                    $('html,body').animate({
+                      scrollTop: target.offset().top
+                    }, 500);
+                  }
+                }
+                return false;
+              });
+            });
+	</script>
     </head>
     <body>
-        <div class="scrollback" style="background-image: url('test1.jpg')">
-            <div class="overlay">testing</div>
+        
+        <nav>
+            <a href="#t1">1</a> <a href="#t2">2</a> <a href="#t3">3</a> <a href="#t4">4</a> <a href="#t5">5</a> <a href="#t6">6</a> <a href="#t7">7</a> <a href="#t8">8</a> <a href="#t9">9</a>
+        </nav>
+        
+        <div class="backgrounds">
+            <div class="scrollback" style="background-image: url('test1.jpg')">
+                <a name="t1"></a>
+                <div class="overlay">&nbsp;
+                </div>
+            </div>
+            
+            <div class="scrollback" style="background-image: url('test2.jpg')">
+                <a name="t2"></a>
+                <div class="overlay">&nbsp;
+                </div>
+            </div>
+            
+            <div class="scrollback" style="background-image: url('test3.jpg')">
+                <a name="t3"></a>
+                <div class="overlay">&nbsp;
+                </div>
+            </div>
+            
+            <div class="scrollback" style="background-image: url('test4.jpg')">
+                <a name="t4"></a>
+                <div class="overlay">&nbsp;
+                </div>
+            </div>
+            
+            <div class="scrollback" style="background-image: url('test5.jpg')">
+                <a name="t5"></a>
+                <div class="overlay">&nbsp;
+                </div>
+            </div>
+            
+            <div class="scrollback" style="background-image: url('test6.jpg')">
+                <a name="t6"></a>
+                <div class="overlay">&nbsp;
+                </div>
+            </div>
+            
+            <div class="scrollback" style="background-image: url('test7.jpg')">
+                <a name="t7"></a>
+                <div class="overlay">&nbsp;
+                </div>
+            </div>
+            
+            <div class="scrollback" style="background-image: url('test8.jpg')">
+                <a name="t8"></a>
+                <div class="overlay">&nbsp;
+                </div>
+            </div>
+            
+            <div class="scrollback" style="background-image: url('test9.jpg')">
+                <a name="t9"></a>
+                <div class="overlay">&nbsp;
+                </div>
+            </div>
         </div>
-        <div class="scrollback" style="background-image: url('test2.jpg')">
-            <div class="overlay">testing</div>
-        </div>
-        <div class="scrollback" style="background-image: url('test3.jpg')">
-            <div class="overlay">testing</div>
-        </div>
-        <div class="scrollback" style="background-image: url('test4.jpg')">
-            <div class="overlay">testing</div>
-        </div>
-        <div class="scrollback" style="background-image: url('test5.jpg')">
-            <div class="overlay">testing</div>
-        </div>
-        <div class="scrollback" style="background-image: url('test6.jpg')">
-            <div class="overlay">testing</div>
-        </div>
-        <div class="scrollback" style="background-image: url('test7.jpg')">
-            <div class="overlay">testing</div>
-        </div>
-        <div class="scrollback" style="background-image: url('test8.jpg')">
-            <div class="overlay">testing</div>
-        </div>
+        
     </body>
 </html>
