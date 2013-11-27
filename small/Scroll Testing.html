@@ -75,11 +75,6 @@
         </style>
         <style>
             .screen {
-            /*background-color: #6483C2;*/
-            /*background-image: url('xerneas.png');*/
-            /*background-position: bottom;*/
-            /*background-repeat: no-repeat;*/
-            /*background-size: 100%;*/
             position: fixed;
             top: 0px;
             left: 0px;
@@ -87,56 +82,96 @@
             height: 100%;
             width: 100%;
             font-size: 22px;
-        }
-        .player {
-            position: relative;
-            left: 250px;
-            top: 200px;
-            height: 50px;
-            width: 100px;
-            background-color: #e5e5e5;
-            opacity: 0.75;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px #666666;
-            overflow: hidden;
-        }
-        .layer {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            height: 450px;
-            width: 600px;
-            margin-top: -225px;
-            margin-left: -300px;
-            text-align: right;
-            padding-top: 11px;
-            color: #6483C2;
-        }
-        .instructions {
-            padding: 5px;
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            text-align: left;
-            color: #e5e5e5;
-            text-shadow: 0px 0px 5px #0a0a0a;
-            width: 590px;
-            height: 440px;
-        }
-        .ihead {
-            font-size: 30px;
-        }
-        .ibody {
-            margin-left: 20px;
-            margin-top: 10px;
-            font-size: 20px;
-        }
-        .position {
-            position: absolute;
-            bottom: 5px;
-            right: 10px;
-            color: #e5e5e5;
-        }
+            }
+            .goal,
+            .enemy,
+            .player {
+                position: absolute;
+                left: 250px;
+                top: 200px;
+                height: 50px;
+                width: 100px;
+                background-color: #e5e5e5;
+                opacity: 0.75;
+                border-radius: 5px;
+                box-shadow: 0px 0px 10px #666666;
+                overflow: hidden;
+            }
+            .goal {
+                left: 500px;
+                top: 300px;
+                background-color: #0a0a0a;
+                box-shadow: 0px 0px 10px #000000;
+            }
+            .enemy {
+                left: 500px;
+                top: 300px;
+                background-color: #f04444;
+                box-shadow: 0px 0px 10px #BF3737;
+            }
+            .layer {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                height: 450px;
+                width: 600px;
+                margin-top: -225px;
+                margin-left: -300px;
+                text-align: right;
+                padding-top: 11px;
+                color: #6483C2;
+            }
+            .instructions {
+                padding: 5px;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                text-align: left;
+                color: #e5e5e5;
+                text-shadow: 0px 0px 5px #0a0a0a;
+                width: 590px;
+                height: 440px;
+            }
+            .ihead {
+                font-size: 30px;
+            }
+            .ibody {
+                margin-left: 20px;
+                margin-top: 10px;
+                font-size: 20px;
+            }
+            .position {
+                position: absolute;
+                bottom: 5px;
+                right: 10px;
+                color: #e5e5e5;
+            }
+            .win,
+            .gameOver {
+                height: 100%;
+                width: 100%;
+                position: fixed;
+                top: 100%;
+                text-align: center;
+                font-size: 100px;
+                background-color: #0a0a0a;
+                color: #e5e5e5;
+                z-index: 20;
+            }
+            #replay,
+            #retry {
+                padding: 20px;
+                font-size: 40px;
+                background-color: #666666;
+                border-radius: 10px;
+                clear: both;
+            }
+            #replay:hover {
+                background-color: #55ad3c;
+            }
+            #retry:hover {
+                background-color: #f04444;
+            }
         </style>
         
         <script src="jquery-2.0.3.js" type="text/javascript"></script>
@@ -288,6 +323,54 @@
               });
             });
 	</script>
+        <script> //ELEMENT BOUNDARIES CHECK
+            function bCheck(elem1, elem2, precise) {
+                
+                this.top1 = $(elem1).offset().top-$(window).scrollTop();
+                this.height1 = $(elem1).height();
+                this.bottom1 = this.top1 + this.height1;
+                
+                this.left1 = $(elem1).offset().left;
+                this.width1 = $(elem1).width();
+                this.right1 = this.left1 + this.width1;
+                
+                this.top2 = $(elem2).offset().top-$(window).scrollTop();
+                this.height2 = $(elem2).height();
+                this.bottom2 = this.top2 + this.height2;
+                
+                this.left2 = $(elem2).offset().left;
+                this.width2 = $(elem2).width();
+                this.right2 = this.left2 + this.width2;
+                
+                if (precise == true) {
+                    if ((this.top1 >= this.top2 && this.top1 <= this.bottom2) || (this.bottom1 <= this.bottom2 && this.bottom1 >= this.top2)) {
+                        if ((this.left1 >= this.left2 && this.left1 <= this.right2) || (this.right1 <= this.right2 && this.right1 >= this.left2)) {
+                            this.overlap = true;
+                        }
+                        else {
+                            this.overlap = false;
+                        }
+                    }
+                    else {
+                        this.overlap = false;
+                    }
+                }
+                else {
+                    if ((this.top1 > this.top2 && this.top1 < this.bottom2) || (this.bottom1 < this.bottom2 && this.bottom1 > this.top2)) {
+                        if ((this.left1 > this.left2 && this.left1 < this.right2) || (this.right1 < this.right2 && this.right1 > this.left2)) {
+                            this.overlap = true;
+                        }
+                        else {
+                            this.overlap = false;
+                        }
+                    }
+                    else {
+                        this.overlap = false;
+                    }
+                }
+                return(this.overlap);
+            }
+        </script>
         <script> //SIZING
             $(document).ready(function(){
                 $('.instructions').css('width', $('.screen').css('width'));
@@ -374,21 +457,155 @@
                 });
             });
         </script>
-        <script> //LEVEL MANAGEMENT
+        <script> //LEVEL, LIVES, AND ENEMIES MANAGEMENT
             $(document).ready(function(){
+                var level = 1;
+                var lives = 3;
+                
+                $('nav a').hide();
+                $('nav a:nth-child(1)').fadeIn(300).click();
+                
+                $('.goal').css('top', '-='+String($('.goal').height()*0.25)+'px').css('height', String($('.goal').height()*1.5)+'px').css('left', '-='+String($('.goal').width()*0.25)+'px').css('width', String($('.goal').width()*1.5)+'px');
+                
+                var m = setInterval(function(){
+                    if (bCheck('.player', '.goal', false) && level < $('nav a').length) {
+                        
+                        level++;
+                        
+                        $('nav a:nth-child('+level+')').fadeIn(300).click();
+                        
+                        $('.player').css('left', '250px').css('top', '200px');
+                        
+                        for (var i = 0; i < level; i++) {
+                            if (i == 0) {
+                                $('.enemies').html('<div class="enemy"></div>');
+                            }
+                            else {
+                                $('.enemies').append('<div class="enemy"></div>');
+                            }
+                        }
+                    }
+                    else if (bCheck('.player', '.goal', false) && level == $('nav a').length) {
+                        $('.enemies').html('');
+                        $('.win').animate({top: '0%'}, 300);
+                    }
+                    for (var i = 0; i < level; i++) {
+                        if (bCheck('.player', '.enemies .enemy:nth-child('+(i+1)+')', true)) {
+                            lives--;
+                            $('.lives').html(lives);
+                            $('.player').css('left', '250px').css('top', '200px');
+                            $('.enemy').css('left', '500').css('top', '300');
+                            if (lives == 0) {
+                                $('.gameOver').animate({top: '0%'}, 300);
+                            }
+                            for (var i = 0; i < level; i++) {
+                                if (i == 0) {
+                                    $('.enemies').html('<div class="enemy"></div>');
+                                }
+                                else {
+                                    $('.enemies').append('<div class="enemy"></div>');
+                                }
+                            }
+                        }
+                    }
+                }, 25);
+                
+                $('nav a').click(function(){
+                    level = Number($(this).html());
+                    console.log('level: '+level);
+                    for (var i = 0; i < level; i++) {
+                        if (i == 0) {
+                            $('.enemies').html('<div class="enemy"></div>');
+                        }
+                        else {
+                            $('.enemies').append('<div class="enemy"></div>');
+                        }
+                    }
+                });
                 
             });
         </script>
-        <script> //ENEMIES
+        <script> //ENEMY MOVEMENT
             $(document).ready(function(){
-                
+                var m = setInterval(function(){
+                    for (var i = 1; i <= $('.enemy').length; i++) {
+                        
+                        var j = Math.ceil((Math.random()+.1)*3.6);
+                        
+                        var relation = new bCheck('.player', '.enemies .enemy:nth-child('+i+')', false);
+                        
+                        var top = relation.top1 < relation.top2;
+                        var left = relation.left1 < relation.left2;
+                        
+                        for (var k = 0; k < 9; k++) {
+                            if (top & j == 3) {
+                                console.log('player is above enemy');
+                                j = Math.ceil((Math.random()+.1)*3.6);
+                            }
+                            if (left & j == 1) {
+                                console.log('player is to the left of enemy');
+                                j = Math.ceil((Math.random()+.1)*3.6);
+                            }
+                            if (!top & j == 4) {
+                                console.log('player is below enemy');
+                                j = Math.ceil((Math.random()+.1)*3.6);
+                            }
+                            if (!left & j == 2) {
+                                console.log('player is to the right of enemy');
+                                j = Math.ceil((Math.random()+.1)*3.6);
+                            }
+                        }
+                        
+                        console.log(j);
+                        
+                        var x = $('.enemies .enemy:nth-child('+i+')').css('left').substring(0, $('.enemies .enemy:nth-child('+i+')').css('left').length-2);
+                        var y = $('.enemies .enemy:nth-child('+i+')').css('top').substring(0, $('.enemies .enemy:nth-child('+i+')').css('top').length-2);
+                        
+                        x = Number(x);
+                        y = Number(y);
+                        
+                        switch(j) {
+                            case 1:
+                                if (x >= $('.screen').width()-150) {
+                                    x = $('.screen').width()-100;
+                                }                                else {
+                                    x += 50;
+                                }
+                                break;
+                            case 2:
+                                if (x <= 50) {
+                                    x = 0;
+                                }
+                                else {
+                                    x -= 50;
+                                }
+                                break;
+                            case 3:
+                                if (y >= $('.screen').height()-100) {
+                                    y = $('.screen').height()-50;
+                                }
+                                else {
+                                    y += 50;
+                                }
+                                break;
+                            case 4:
+                                if (y <= 50) {
+                                    y = 0;
+                                }
+                                else {
+                                    y -= 50;
+                                }
+                                break;
+                        }
+                        $('.enemies .enemy:nth-child('+i+')').animate({top: y+'px'}, 0).animate({left: x+'px'}, 0);
+                    }    
+                }, 1000);
             });
         </script>
     </head>
     <body>
-        
         <nav>
-            Level: <a href="#t1">1</a> <a href="#t2">2</a> <a href="#t3">3</a> <a href="#t4">4</a> <a href="#t5">5</a> <a href="#t6">6</a> <a href="#t7">7</a> <a href="#t8">8</a> <a href="#t9">9</a>
+            Level: <a href="#t1">1</a> <a href="#t2">2</a> <a href="#t3">3</a> <a href="#t4">4</a> <a href="#t5">5</a> <a href="#t6">6</a> <a href="#t7">7</a> <a href="#t8">8</a> <a href="#t9">9</a> Lives: <span class="lives">3</span>
         </nav>
         
         <div class="backgrounds">
@@ -444,8 +661,16 @@
                 <a name="t9"></a>
                 <div class="overlay">
                     <div class="screen">
+                        <div class="goal">
+                            
+                        </div>
                         <div class="player">
                             <div class="layer">
+                                
+                            </div>
+                        </div>
+                        <div class="enemies">
+                            <div class="enemy">
                                 
                             </div>
                         </div>
@@ -460,12 +685,25 @@
                                 A to go left</br>
                                 D to go right
                             </div>
+                            <div class="ihead">
+                                Instructions:
+                            </div>
+                            <div class="ibody">
+                                Avoid the red boxes</br>while travelling</br>to the black box.
+                            </div>
                             <div class="position">test</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+        <div class="gameOver">
+            <div class="title">GAME OVER</div>
+            <a id="retry" href="Scroll Testing.html">Retry?</a></br>
+        </div>
+        <div class="win">
+            <div class="title">Congratulations</div>
+            <a id="replay" href="Scroll Testing.html">Replay?</a></br>
+        </div>
     </body>
 </html>
