@@ -74,9 +74,3 @@ body {
     right: 10px;
     color: #e5e5e5;
 }
-@media (max-height: 450px) {
-    .screen {
-        top: 0px;
-        margin-top: 0px;
-    }
-}

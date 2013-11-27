@@ -3,7 +3,7 @@
 <html style="margin: 0px;padding: 0px; height: 100%">
     <head>
         <title>Page Title</title>
-        <script languange="javascript" type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.js"></script>
+        <script languange="javascript" type="text/javascript" src="jquery-2.0.3.js"></script>
 	<script>
             $(document).ready(function() {
                 function Matrix() {
@@ -23,10 +23,11 @@
                 var m = setInterval(function() {
                     o = $(document).height();
                     h = $('.cong').height();
-                    if (h < o) {
+                    if (h < o-20) {
                         if (t < Math.floor(Math.random()*80)) {
                             $('.cong').append(Matrix());
                             t++;
+			    $('html').animate({scrollTop: '+=50px'}, 500);
                         }
                         else {
                             $('.cong').append("</br>");
@@ -63,7 +64,7 @@
                 height: auto;
                 width: auto;
                 margin: 0px;
-                text-align: center;
+                text-align: right;
                 margin-left: auto;
                 margin-right: auto;
                 padding: 0px;
@@ -72,7 +73,8 @@
                 -webkit-transform:rotate(90deg);
                 -ms-transform:rotate(90deg);
                 transform:rotate(90deg);
-                float: left;
+                /*float: left;*/
+		text-align: right;
                 margin: 0px;
                 padding: 0px;
             }
@@ -81,7 +83,9 @@
     
     <body>
         <div>
+	    <a id="click" href="#floor">click</a>
             <div class="height"><div class="cong"></div></div>
+	    <a name="floor"></a>
         </div>
     </body>
 </html>
