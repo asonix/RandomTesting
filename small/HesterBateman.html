@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>In Which Hester Bateman</title>
+        <style>
+            ::selection {
+                background-color: #e5e5e5;
+                color: #0a0a0a;
+            }
+            ::-moz-selection {
+                background-color: #e5e5e5;
+                color: #0a0a0a;
+            }
+            html,
+            body {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                height: 100%;
+                width: 100%;
+                padding: 0px;
+                margin: 0px;
+                background-color: #0a0a0a;
+                background-size: 100%;
+                background-attachment: fixed;
+                color: #e5e5e5;
+                font-size: 18px;
+                font-family: Droid Sans, Arial, sans-serif;
+            }
+            body {
+                overflow: hidden;
+            }
+            #bgls {
+                width: 100%;
+                height: 100%;
+            }
+            .background {
+                height: 100%;
+                width: 100%;
+                background-attachment: fixed;
+                background-size: 100%;
+            }
+            #b01 {
+                background-image: url("spoon.jpg");
+            }
+            #b02 {
+                background-image: url("ireland.gif");
+            }
+            #b03 {
+                background-image: url("conflict.jpg");
+            }
+            #b04 {
+                background-image: url("moon.jpg");
+            }
+            #b05 {
+                background-image: url("lake.jpg");
+            }
+            #b06 {
+                background-image: url("mine.jpg");
+            }
+            #b07 {
+                background-image: url("love.jpg");
+            }
+            .heading {
+                position: fixed;
+                background-image: url('trans-black-75.png');
+                top: 5%;
+                font-size: 50px;
+                color: #e5e5e5;
+                width: 100%;
+                text-align: center;
+            }
+            .main {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                top: 0%;
+                z-index: 10;
+            }
+            .main p {
+                background-image: url('trans-black-75.png');
+                border-radius: 5px;
+                width: auto;
+                padding: 5px;
+                max-width: 430px;
+            }
+            .left {
+                float: left;
+                margin-left: 50px;
+            }
+            .right {
+                float: right;
+                margin-right: 50px;
+            }
+            .red {
+                color: #f43d3d;
+            }
+            .green {
+                color: #3df43d;
+            }
+        </style>
+        <script src="jquery-2.0.3.js" type="text/javascript"></script>
+        <script> //SMOOTH SCROLLING (IDK HOW IT WORK)
+            $(function() {
+              $('a[href*=#]:not([href=#])').click(function() {
+                if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+                  var target = $(this.hash);
+                  target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                  if (target.length) {
+                    $('html,body').animate({
+                      scrollTop: target.offset().top
+                    }, 500);
+                  }
+                }
+                return false;
+              });
+            });
+	</script>
+        <script> //PARALLAX
+            $(document).ready(function(){
+                
+                var drama = -100;
+                
+                for (var i = 1; i < $('#bgls .background').length+1; i++) {
+                    if (isScrolledIntoView('#bgls .background:nth-child('+i+')') == true) {
+                        var position = ($('#bgls .background:nth-child('+i+')').offset().top-$(window).scrollTop())/$(window).height();
+                        var final = -drama*position;
+                        
+                        $('#bgls .background:nth-child('+i+')').css('background-position', '0px '+String(final)+'px');
+                    }
+                }
+                
+                
+                function isScrolledIntoView(elem)
+                {
+                    var docViewTop = $(window).scrollTop();
+                    var docViewBottom = docViewTop + $(window).height();
+                    
+                    var elemTop = $(elem).offset().top;
+                    var elemBottom = elemTop + $(elem).height();
+                    
+                    return (((elemBottom >= docViewTop) || (elemTop >= docViewTop)) && (elemTop <= docViewBottom));
+                }
+                
+                $(window).scroll(function(){
+                    for (var i = 1; i < $('#bgls .background').length+1; i++) {
+                        if (isScrolledIntoView('#bgls .background:nth-child('+i+')') == true) {
+                            var position = ($('#bgls .background:nth-child('+i+')').offset().top-$(window).scrollTop())/$(window).height();
+                            var final = Math.round(-drama*position);
+                            
+                            $('#bgls .background:nth-child('+i+')').css('background-position', '0px '+String(final)+'px');
+                        }
+                    }
+                }).resize(function(){
+                    
+                    for (var i = 1; i < $('#bgls .background').length+1; i++) {
+                        if (isScrolledIntoView('#bgls .background:nth-child('+i+')') == true) {
+                            var position = ($('#bgls .background:nth-child('+i+')').offset().top-$(window).scrollTop())/$(window).height();
+                            var final = Math.round(-drama*position);
+                            
+                            $('#bgls .background:nth-child('+i+')').css('background-position', '0px '+String(final)+'px');
+                        }
+                    }
+                });
+                
+            });
+        </script>
+        <script> //GENERIC ANIMATIONS
+            $(document).ready(function(){
+                
+                var time = 0;
+                var j = 1;
+                
+                $('nav a:nth-child(' + j + ')').click();
+                
+                $('.line1').hide().delay(300).fadeIn(300);
+                $('.line2').hide().delay(600).fadeIn(300);
+                $('.line3').hide().delay(900).fadeIn(300);
+                $('.heading').delay(2100).animate({top: '-100%'}, 900);
+                
+                time = 3000;
+                
+                var paragraphs = document.getElementsByClassName('par');
+                var links = document.getElementsByClassName('inlink');
+                var backgrounds = document.getElementsByClassName('background');
+                
+                for (var i = 0; i < Math.ceil(paragraphs.length/2); i++) {
+                    $('.left p:nth-child('+(i+1)+')').hide().delay(time).fadeIn(300);
+                    time += 300;
+                }
+                for (var i = 0; i < Math.ceil(paragraphs.length/2); i++) {
+                    $('.right p:nth-child('+(i+1)+')').hide().delay(time).fadeIn(300);
+                    time += 300;
+                }
+                
+                var m = setInterval(function(){
+                    if (j < links.length) {
+                        j++
+                    } else {
+                        j = 1;
+                    }
+                    $('nav a:nth-child(' + j + ')').click();
+                    $(window).resize(function(){
+                        $('nav a:nth-child(' + j + ')').click();
+                    });
+                }, 20000);
+            });
+        </script>
+    </head>
+    <body>
+        <div class="heading">
+            <div class="line1">In Which Hester Bateman,</div>
+            <div class="line2">18th Century English Silversmith,</div>
+            <div class="line3">Takes an Irish Commision</div>
+        </div>
+        <nav id="nav" class="nav">
+            <a class="inlink" id="b01" href="#b01"></a><a class="inlink" href="#b02"></a><a class="inlink" href="#b03"></a><a class="inlink" href="#b04"></a><a class="inlink" href="#b05"></a><a class="inlink" href="#b06"></a><a class="inlink" href="#b07"></a>
+        </nav>
+        <div id="bgls">
+            <div class="background" id="b01"><a name="b01"></a></div>
+            <div class="background" id="b02"><a name="b02"></a></div>
+            <div class="background" id="b03"><a name="b03"></a></div>
+            <div class="background" id="b04"><a name="b04"></a></div>
+            <div class="background" id="b05"><a name="b05"></a></div>
+            <div class="background" id="b06"><a name="b06"></a></div>
+            <div class="background" id="b07"><a name="b07"></a></div>
+        </div>
+        <div class="main">
+            <div class="left">
+                 <p class="par">
+                    Hester Bateman made a <span class="green">marriage</span> spoon</br>
+                    And then subjected it to <span class="red">violence</span>.</br>
+                    <span class="red">Chased</span>, <span class="red">beat</span> it. <span class="red">Scarred</span> it and <span class="red">marked</span> it.</br>
+                    All in the spirit of our <span class="red">darkest</span> century
+                </p>
+    
+                <p class="par">
+                    Far away from <span class="red">grapeshot</span> and <span class="red">tar caps</span></br>
+                    And the <span class="green">hedge schools</span> and the <span class="green">music</span> of <span class="red">sedition</span></br>
+                    She is <span class="red">oblivious</span> to she pours out</br>
+                    And lets cool the <span class="green">sweet</span> colonial metal.
+                </p>
+                <p class="par">
+                    Here in miniature a man and woman</br>
+                    Emerge beside each other from the <span class="green">earth</span>,</br>
+                    From the deep mine, from the seams of rock</br>
+                    Which made <span class="red">inevitable</span> her craft of <span class="red">hurt</span>.
+                </p>
+                <p class="par">
+                    They stand side by side on the handle.</br>
+                    She writes their names in the <span class="green">smooth</span></br>
+                    <span class="red">Mimicry</span> of a lake the ladle is making, in</br>
+                    A flowing script with a moon <span class="red">drowned</span> in it.
+                </p>
+            </div>
+           <div class="right">
+                <p class="par">
+                    <span class="green">Art</span> and <span class="green">marriage</span>: now a made match.</br>
+                    The silver bends and <span class="green">shines</span> and in its own</br>
+                    Mineral curve an age-old <span class="red">tension</span></br>
+                    Inches towards the <span class="green">light</span>. See how
+                </p>
+                <p class="par">
+                    Past and future and the space between</br>
+                    The <span class="green">semblance</span> of empire, the <span class="green">promise</span> of nation,</br>
+                    Are <span class="red">vanishing</span> in this mediation</br>
+                    Between <span class="red">oppression</span> and <span class="green">love's</span> remembrance
+                </p>
+                <p class="par">
+                    Until <span class="red">resistance</span> is their only element. It is</br>
+                    What they embody, bound now and always.</br>
+                    History frowns on them: yet in its gaze</br>
+                    They join their <span class="red">injured</span> hands and make their vows.
+                </p>
+           </div>
+        </div>
+    </body>
+</html>
